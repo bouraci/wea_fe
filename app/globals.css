@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+@layer base {
+    h1, h2, h3 {
+        @apply font-bold pb-2
+    }
+
+    h2 {
+        @apply text-2xl;
+    }
+
+    h3 {
+        @apply text-xl;
+    }
+
+    body {
+        @apply bg-zinc-900 text-zinc-50;
+    }
+
+    input {
+        @apply bg-zinc-700 rounded-lg
+    }
+}

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  wea_be:
+    image: hejsekvojtech/wea_be
+    container_name: wea_be
+    build:
+      context: ./wea_be
+      dockerfile: Dockerfile
+    ports:
+      - "8080"
+    networks:
+      - wea_net
+  wea_fe:
+    image: hejsekvojtech/wea_fe
+    container_name: wea_fe
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - wea_net
+networks:
+  wea_net:
+    driver: bridge
