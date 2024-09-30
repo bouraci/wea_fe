@@ -2,6 +2,12 @@ all: clone-be run
 
 build-push: clone-be build push
 
+in-be:
+	docker exec -it wea_be bash
+
+in-fe:
+	docker exec -it wea_fe bash
+
 push:
 	@echo "Pushing WEA_BE image to the registry..."
 	docker push hejsekvojtech/wea_be:latest
