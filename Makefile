@@ -31,4 +31,4 @@ build:
 
 run:
 	@echo "Running Docker Compose..."
-	docker-compose -f docker-compose.yml up -d --build
+	docker compose -f compose.yml up -d --build
