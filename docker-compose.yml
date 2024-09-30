@@ -9,6 +9,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080"
+    volumes:
+      - ./logs:/home/app/logs
     networks:
       - wea_net
   wea_fe:

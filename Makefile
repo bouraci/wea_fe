@@ -3,7 +3,7 @@ all: clone-be build run
 push:
 	@echo "Pushing WEA_BE image to the registry..."
 	docker push hejsekvojtech/wea_be:latest
-	@echo "Pushing WEA_BE image to the registry..."
+	@echo "Pushing WEA_FE image to the registry..."
 	docker push hejsekvojtech/wea_fe:latest
 
 clone-be:
@@ -11,7 +11,8 @@ clone-be:
 		echo "Cloning backend repository..."; \
 		git clone git@github.com:bouraci/wea_be.git wea_be; \
 	else \
-		echo "WEA BE repository already exists."; \
+		echo "WEA BE repository already exists. Pulling latest changes..."; \
+		cd wea_be && git pull origin master; \
 	fi
 
 build:
