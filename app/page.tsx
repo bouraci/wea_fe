@@ -32,8 +32,6 @@ export default function Home() {
     debouncedChangeHandler(value);
   };
 
-  console.log(`${process.env.NEXT_PUBLIC_API_URL}`);
-
   const debouncedChangeHandler = useMemo(
       () =>
           debounce((value) => {
