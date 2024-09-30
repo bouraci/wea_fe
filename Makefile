@@ -1,4 +1,6 @@
-all: clone-be build run
+all: clone-be run
+
+build-push: clone-be build push
 
 push:
 	@echo "Pushing WEA_BE image to the registry..."
