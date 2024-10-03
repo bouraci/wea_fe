@@ -17,6 +17,7 @@ export default function Home() {
     () => getGreetingMessage(debouncedName),
     {
       revalidateOnFocus: false,
+      shouldRetryOnError: false,
     },
   );
 
