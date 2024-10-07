@@ -5,6 +5,7 @@ import clsx from "clsx";
 import config from "@/tailwind.config";
 import "./globals.css";
 import {Toaster} from "react-hot-toast";
+import {Sidebar} from "@components/page";
 
 config.autoAddCss = false;
 
@@ -22,9 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={clsx(inter.className, "flex min-h-screen flex-col")}>
+      <body className={clsx(inter.className, "flex min-h-screen")}>
         <Toaster position="top-right" />
-        <main className="flex flex-col flex-1 px-4 pb-4 container justify-center max-w-screen-xl mx-auto">
+        <Sidebar />
+        <main className="flex flex-col flex-1 p-4">
           {children}
         </main>
       </body>

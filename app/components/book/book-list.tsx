@@ -9,9 +9,11 @@ export function BookList({ data }: { data: BookType[] }) {
 
     return (
         <Card heading="Book List">
-            {data.map((book) => (
-                <BookListItem key={book.id} book={book} />
-            ))}
+            <div className="flex flex-col gap-4">
+                {data.map((book) => (
+                    <BookListItem key={book.id} book={book} />
+                ))}
+            </div>
         </Card>
     );
 }
