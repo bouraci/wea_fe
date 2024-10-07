@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={clsx(inter.className, "flex min-h-screen flex-col")}>
         <Toaster position="top-right" />
-        <main className="flex flex-col flex-1 px-4 pb-4 container justify-center max-w-screen-md mx-auto">
+        <main className="flex flex-col flex-1 px-4 pb-4 container justify-center max-w-screen-xl mx-auto">
           {children}
         </main>
       </body>

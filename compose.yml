@@ -1,14 +1,4 @@
-name: "wea_project"
-
 services:
-  wea_be:
-    image: hejsekvojtech/wea_be
-    container_name: wea_be
-    build:
-      context: ./wea_be
-      dockerfile: Dockerfile
-    networks:
-      - wea_net
   wea_fe:
     image: hejsekvojtech/wea_fe
     container_name: wea_fe
@@ -21,4 +11,5 @@ services:
       - wea_net
 networks:
   wea_net:
+    name: wea_net
     driver: bridge

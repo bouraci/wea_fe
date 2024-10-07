@@ -25,6 +25,14 @@
     }
 
     input {
-        @apply bg-zinc-700 rounded-lg
+        @apply bg-zinc-600 rounded-lg p-2
+    }
+
+    .card-list-item > p {
+        @apply flex-1;
+    }
+
+    label {
+        @apply text-right;
     }
 }

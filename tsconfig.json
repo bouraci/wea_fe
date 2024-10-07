@@ -25,6 +25,12 @@
       ],
       "@utils/*": [
         "app/utils/*"
+      ],
+      "@api/*": [
+        "app/api/*"
+      ],
+      "@hooks/*": [
+        "app/hooks/*"
       ]
     }
   },
