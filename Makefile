@@ -2,7 +2,7 @@ all: clone-be run
 
 build-push: clone-be build push
 
-in-fe:
+in:
 	docker exec -it wea_fe bash
 
 push:
@@ -28,5 +28,9 @@ build:
 
 run:
 	@echo "Running Docker Compose..."
+	make clone-be
 	docker compose up -d --build
-	cd modules/wea_be && make run
+
+init:
+	@echo "Creating network..."
+	docker network inspect cdb-network >/dev/null 2>&1 || docker network create --driver bridge cdb-network

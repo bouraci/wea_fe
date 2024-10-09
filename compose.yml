@@ -6,10 +6,36 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3006:3000"
     networks:
-      - wea_net
+      - cdb-network
+  wea_db:
+    image: mysql:8.0
+    restart: unless-stopped
+    container_name: wea_db
+    ports:
+      - "50006:3306"
+    volumes:
+      - ./dbdata:/var/lib/mysql
+      - /home/cerny/logs/sk07:/home/app/logs
+    environment:
+      MYSQL_ROOT_PASSWORD: WEAez
+    networks:
+      - cdb-network
+  sk07-web:
+    image: hejsekvojtech/wea_be
+    container_name: sk07-web
+    depends_on:
+      - wea_db
+    build:
+      context: ./modules/wea_be
+      dockerfile: Dockerfile
+    ports:
+      - "8006:8080"
+    networks:
+      - cdb-network
 networks:
-  wea_net:
-    name: wea_net
+  cdb-network:
+    name: cdb-network
     driver: bridge
+    external: true
