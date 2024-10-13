@@ -7,6 +7,14 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'placehold.co'
             },
+            {
+                protocol: 'http',
+                hostname: 'books.google.com'
+            },
+            {
+                protocol: 'https',
+                hostname: 'blogger.googleusercontent.com'
+            }
         ],
     },
     async rewrites() {

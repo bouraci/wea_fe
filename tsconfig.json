@@ -31,7 +31,10 @@
       ],
       "@hooks/*": [
         "app/hooks/*"
-      ]
+      ],
+      "@contexts/*": [
+        "app/contexts/*"
+      ],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

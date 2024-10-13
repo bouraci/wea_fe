@@ -12,13 +12,31 @@ export const getGreetingMessage = async (name: string) => {
     return await response.text();
 };
 
-export const getBooksList = async () => {
-    const response = await fetcher(`/api/books`, {
+export async function getBooksList(
+    page: number = 1,
+    pageSize: number = 10,
+    filters: {
+        title?: string;
+        author?: string;
+        genre?: string;
+        publicationYear?: string;
+        minRating?: string;
+        maxRating?: string;
+    } = {}
+) {
+    const queryParams = new URLSearchParams({
+        page: String(page),
+        pageSize: String(pageSize),
+        ...filters,
+    });
+
+    const response = await fetcher(`/api/books?${queryParams.toString()}`, {
         method: 'GET',
     });
 
-    return await response.json();
-};
+    return response.json();
+}
+
 
 export const getBookDetail = async (id: number) => {
     const response = await fetcher(`/api/books/${id}`, {

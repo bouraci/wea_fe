@@ -39,4 +39,24 @@
     label {
         @apply text-right;
     }
+
+    .filter-group {
+        @apply flex flex-col gap-2;
+    }
+
+    .filter-group > label {
+        @apply text-left;
+    }
+
+    .pagination > button {
+        @apply bg-zinc-600 p-2 rounded-lg border-zinc-50 border;
+    }
+
+    .pagination > button:hover {
+        @apply bg-zinc-700;
+    }
+
+    .pagination > button:disabled {
+        @apply bg-zinc-400;
+    }
 }
