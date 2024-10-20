@@ -8,7 +8,7 @@ export function BookList({ data }: { data: BookListType }) {
     }
 
     return (
-        <Card heading="Book List">
+        <Card heading="Book List" subheading={`(celkem: ${data.totalRecords})`}>
             <div className="flex flex-col gap-4">
                 {data.books.map((book) => (
                     <BookListItem key={book.id} book={book} />

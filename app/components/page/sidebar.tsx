@@ -2,9 +2,12 @@
 
 import {useFilter} from "@contexts/FilterContext";
 import {ChangeEvent} from "react";
+import {UserChip} from "@components/user/user-chip";
+import {useUser} from "@hooks/useUser";
 
 export function Sidebar() {
     const { tempFilters, setTempFilters, applyFilters } = useFilter();
+    const { user } = useUser();
 
     const handleFilterChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -13,6 +16,7 @@ export function Sidebar() {
 
     return (
         <div className="h-screen bg-zinc-800 w-1/6 p-4 flex flex-col">
+            <>
             <div className="filter-group">
                 <label htmlFor="title">Title</label>
                 <input
@@ -83,6 +87,11 @@ export function Sidebar() {
                 <button className="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-800 transition-all duration-200" onClick={applyFilters}>
                     Filter
                 </button>
+            </div>
+            </>
+
+            <div className="mt-auto">
+                <UserChip user={user} />
             </div>
         </div>
     )

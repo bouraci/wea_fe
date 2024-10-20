@@ -1,13 +1,15 @@
-"use client"
+"use client";
 
 import { createContext, useState, ReactNode, useContext } from "react";
-import {BookFilterType} from "@/app/types/BookFilterType";
+import { BookFilterType } from "@/app/types/BookFilterType";
 
 type FilterContextType = {
     tempFilters: BookFilterType;
     appliedFilters: BookFilterType;
-    setTempFilters: (filters: Partial<FilterContextType["tempFilters"]>) => void;
+    page: number;
+    setTempFilters: (filters: Partial<BookFilterType>) => void;
     applyFilters: () => void;
+    setPage: (page: number) => void;
 };
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
@@ -21,7 +23,7 @@ export function useFilter() {
 }
 
 export function FilterProvider({ children }: { children: ReactNode }) {
-    const [tempFilters, setTempFiltersState] = useState<FilterContextType["tempFilters"]>({
+    const [tempFilters, setTempFiltersState] = useState<BookFilterType>({
         title: "",
         author: "",
         genre: "",
@@ -30,20 +32,32 @@ export function FilterProvider({ children }: { children: ReactNode }) {
         maxRating: "",
     });
 
-    const [appliedFilters, setAppliedFilters] = useState<FilterContextType["appliedFilters"]>({
+    const [appliedFilters, setAppliedFilters] = useState<BookFilterType>({
         ...tempFilters,
     });
 
-    const setTempFilters = (newFilters: Partial<FilterContextType["tempFilters"]>) => {
+    const [page, setPage] = useState(1);
+
+    const setTempFilters = (newFilters: Partial<BookFilterType>) => {
         setTempFiltersState((prev) => ({ ...prev, ...newFilters }));
     };
 
     const applyFilters = () => {
         setAppliedFilters({ ...tempFilters });
+        setPage(1);
     };
 
     return (
-        <FilterContext.Provider value={{ tempFilters, appliedFilters, setTempFilters, applyFilters }}>
+        <FilterContext.Provider
+            value={{
+                tempFilters,
+                appliedFilters,
+                page,
+                setTempFilters,
+                applyFilters,
+                setPage,
+            }}
+        >
             {children}
         </FilterContext.Provider>
     );

@@ -1,6 +1,6 @@
 "use client";
 
-import {getGreetingMessage} from "@api/fetchers";
+import {getGreetingMessage} from "@api/bookFetchers";
 import debounce from "lodash.debounce";
 import {ChangeEvent, useEffect, useMemo, useState} from "react";
 import {useFetch} from "@hooks/useFetch";

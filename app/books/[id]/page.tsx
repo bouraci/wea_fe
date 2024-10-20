@@ -1,7 +1,7 @@
 "use client"
 
 import {BookType} from "@/app/types/BookType";
-import {getBookDetail} from "@api/fetchers";
+import {getBookDetail} from "@api/bookFetchers";
 import {Spinner} from "@components/spinner";
 import {BookDetail} from "@components/book";
 import {useFetch} from "@hooks/useFetch";
