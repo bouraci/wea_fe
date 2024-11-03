@@ -5,6 +5,8 @@ import {ChangeEvent} from "react";
 import {UserChip} from "@components/user/user-chip";
 import {useFetch} from "@hooks/useFetch";
 import {getAllGenres} from "@api/genreFetchers";
+import {usePathname} from "next/navigation";
+import clsx from "clsx";
 
 export function Sidebar() {
     const {tempFilters, setTempFilters, applyFilters} = useFilter();
@@ -19,6 +21,8 @@ export function Sidebar() {
         () => getAllGenres()
     );
 
+    const isRoot = usePathname() === "/";
+
     return (
         <div className="h-screen max-w-sm w-max bg-zinc-800 p-4 flex flex-col">
             <>
@@ -30,6 +34,7 @@ export function Sidebar() {
                         value={tempFilters.title}
                         placeholder="Enter title"
                         onChange={handleFilterChange}
+                        disabled={!isRoot}
                     />
 
                     <label htmlFor="author">Author</label>
@@ -39,6 +44,7 @@ export function Sidebar() {
                         value={tempFilters.author}
                         placeholder="Enter author"
                         onChange={handleFilterChange}
+                        disabled={!isRoot}
                     />
 
                     {data && (
@@ -49,6 +55,7 @@ export function Sidebar() {
                                 name="genre"
                                 value={tempFilters.genre}
                                 onChange={handleFilterChange}
+                                disabled={!isRoot}
                             >
                                 <option value=""></option>
                                 {data.map((genre, index) => (
@@ -69,6 +76,7 @@ export function Sidebar() {
                         placeholder="Year"
                         min="0"
                         onChange={handleFilterChange}
+                        disabled={!isRoot}
                     />
 
                     <label htmlFor="minRating">Min Rating</label>
@@ -82,6 +90,7 @@ export function Sidebar() {
                         value={tempFilters.minRating ?? ''}
                         placeholder="0 - 5"
                         onChange={handleFilterChange}
+                        disabled={!isRoot}
                     />
 
                     <label htmlFor="maxRating">Max Rating</label>
@@ -95,13 +104,18 @@ export function Sidebar() {
                         value={tempFilters.maxRating ?? ''}
                         placeholder="0 - 5"
                         onChange={handleFilterChange}
+                        disabled={!isRoot}
                     />
                 </div>
 
                 <div className="mt-4">
-                    <button className="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-800 transition-all duration-200"
-                            onClick={applyFilters}>
-                        Filter
+                    <button
+                        disabled={!isRoot}
+                        className={
+                        clsx("px-4 py-2 rounded-lg bg-blue-500/50 border border-blue-500 transition-all duration-200", !isRoot ? "cursor-not-allowed" : "hover:bg-blue-500")}
+                        onClick={applyFilters}
+                    >
+                        Apply Filters
                     </button>
                 </div>
             </>
