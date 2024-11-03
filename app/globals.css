@@ -32,6 +32,10 @@
         @apply bg-zinc-600 rounded-lg p-2
     }
 
+    button {
+        @apply bg-blue-500/50 hover:bg-blue-500 p-2 rounded-lg border-blue-500 transition-all duration-300 border;
+    }
+
     .card-list-item > p {
         @apply flex-1;
     }

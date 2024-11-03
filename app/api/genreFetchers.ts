@@ -1,7 +1,5 @@
-import { fetcher } from '@utils/fetcher'
-
-export const getAllGenres = async () => {
-    const response = await fetcher(`/api/books/genres`, {
+export async function getAllGenres() {
+    const response = await fetch(`/api/books/genres`, {
         method: 'GET',
     });
 

@@ -1,6 +1,6 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useUser} from "@contexts/UserContext";
-import {postBookCommnent} from "@api/commentFetchers";
+import {postBookComment} from "@api/commentFetchers";
 import {mutate} from "swr";
 import toast from "react-hot-toast";
 
@@ -28,7 +28,7 @@ export function CommentForm({bookId}: {bookId: number}) {
 
     const onSubmit: SubmitHandler<Inputs> = async () => {
         try {
-            await postBookCommnent(
+            await postBookComment(
                 {
                     content: comment,
                     userName: user.username,

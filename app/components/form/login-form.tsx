@@ -27,20 +27,19 @@ export function LoginForm() {
 
   const onSubmit: SubmitHandler<Inputs> = async () => {
     try {
-      const loginResponse = await login(
+      const response = await login(
         username,
         password,
       );
 
-      if (!loginResponse || !loginResponse.code || loginResponse.code !== 200) {
+      if (response.user === null) {
         toast.error("Neplatné údaje!");
       } else {
         toast.success("Přihlášení proběhlo úspěšně!");
-        setUser(loginResponse.user);
+        setUser(response.user);
         router.push("/");
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {}
+    } catch {}
   };
 
   useEffect(() => {
@@ -59,7 +58,7 @@ export function LoginForm() {
           required: "Je potřeba zadat uživatelské jméno"
         })}
       />
-      {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+      {errors.username && <small className="text-red-500">{errors.username.message}</small>}
       <input
         type="password"
         placeholder="Heslo"
@@ -67,7 +66,7 @@ export function LoginForm() {
         {...register("password", { required: "Je potřeba zadat heslo" })}
       />
       {errors.password && (
-        <p className="text-red-500">{errors.password.message}</p>
+        <small className="text-red-500">{errors.password.message}</small>
       )}
       <button className="p-2 bg-blue-500 text-white rounded-lg" type="submit">
         Přihlásit se

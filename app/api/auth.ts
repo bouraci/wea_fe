@@ -1,17 +1,9 @@
-import {fetcher} from "@utils/fetcher";
-import {UserType} from "@/app/types/UserType";
-
-export type LoginResponse = {
-    user: UserType;
-    code: number;
-}
-
 export type RegisterResponse = {
     code: number;
 }
 
 export const login = async (username: string, password: string) => {
-    const response = await fetcher(`/api/auth/login`, {
+    const response = await fetch(`/api/auth/login`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -20,9 +12,16 @@ export const login = async (username: string, password: string) => {
         }),
     });
 
+    if (!response.ok) {
+        return {
+            user: null,
+            code: response.status
+        };
+    }
+
     const data = await response.json();
 
-    const loginResponse: LoginResponse = {
+    return {
         user: {
             id: data.id,
             name: data.name,
@@ -30,12 +29,10 @@ export const login = async (username: string, password: string) => {
         },
         code: response.status
     };
-
-    return loginResponse;
 }
 
 export const register = async (username: string, password: string, name: string): Promise<RegisterResponse> => {
-    const response = await fetcher(`/api/auth/register`, {
+    const response = await fetch(`/api/auth/register`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

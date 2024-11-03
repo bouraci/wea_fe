@@ -1,8 +1,7 @@
-import {fetcher} from "@utils/fetcher";
 import {BookCommentRequestType} from "@/app/types/BookType";
 
-export const postBookCommnent = async (comment: BookCommentRequestType) => {
-    const response = await fetcher(`/api/comments/comment`, {
+export async function postBookComment(comment: BookCommentRequestType) {
+    const response = await fetch(`/api/comments/comment`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -11,4 +10,4 @@ export const postBookCommnent = async (comment: BookCommentRequestType) => {
     });
 
     return await response.text();
-};
+}
