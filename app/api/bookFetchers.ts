@@ -37,7 +37,6 @@ export async function getBooksList(
     return response.json();
 }
 
-
 export const getBookDetail = async (id: number) => {
     const response = await fetcher(`/api/books/${id}`, {
         method: 'GET',

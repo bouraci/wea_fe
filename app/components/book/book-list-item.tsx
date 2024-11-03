@@ -1,10 +1,11 @@
-import { BookType } from "@/app/types/BookType";
 import Link from "next/link";
 import Image from "next/image";
 import { PLACEHOLDER_BOOK_COVER_URL } from "@/app/constants";
 import {Rating} from "@components/rating";
+import {BookListItemType} from "@/app/types/BookListType";
+import {Chip} from "@components/chip";
 
-export function BookListItem({ book }: { book: BookType }) {
+export function BookListItem({ book }: { book: BookListItemType }) {
     return (
         <Link
             href={`/books/${book.id}`}
@@ -21,12 +22,12 @@ export function BookListItem({ book }: { book: BookType }) {
                 <div className="flex flex-col gap-1">
                     <p className="font-bold text-2xl">{book.title}</p>
                     <p className="italic">{book.authors.split(";").join(", ")}</p>
+                    {book.genre.length > 0 && <Chip content={book.genre}/>}
                     <p>{book.publicationYear}</p>
                     <span className="flex gap-2 items-center">
                         <Rating value={book.rating}/>
                         <p>({book.totalRatings})</p>
                     </span>
-                    <p className="line-clamp-3 overflow-hidden text-ellipsis text-zinc-300">{book.description}</p>
                 </div>
             </div>
         </Link>

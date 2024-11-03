@@ -28,7 +28,7 @@
         @apply bg-zinc-900 text-zinc-50 flex flex-row;
     }
 
-    input {
+    input,select {
         @apply bg-zinc-600 rounded-lg p-2
     }
 
