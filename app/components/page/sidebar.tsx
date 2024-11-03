@@ -3,13 +3,11 @@
 import {useFilter} from "@contexts/FilterContext";
 import {ChangeEvent} from "react";
 import {UserChip} from "@components/user/user-chip";
-import {useUser} from "@hooks/useUser";
 import {useFetch} from "@hooks/useFetch";
 import {getAllGenres} from "@api/genreFetchers";
 
 export function Sidebar() {
     const {tempFilters, setTempFilters, applyFilters} = useFilter();
-    const {user} = useUser();
 
     const handleFilterChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {name, value} = e.target;
@@ -20,8 +18,6 @@ export function Sidebar() {
         `/api/books/genres`,
         () => getAllGenres()
     );
-
-    console.log(data);
 
     return (
         <div className="h-screen max-w-sm w-max bg-zinc-800 p-4 flex flex-col">
@@ -111,7 +107,7 @@ export function Sidebar() {
             </>
 
             <div className="mt-auto">
-                <UserChip user={user}/>
+                <UserChip/>
             </div>
         </div>
     )

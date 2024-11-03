@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import {register as userRegister} from "@api/auth";
 import toast from "react-hot-toast";
-import {useUser} from "@hooks/useUser";
+import {useUser} from "@contexts/UserContext";
 
 type Inputs = {
     name: string;
@@ -21,7 +21,7 @@ export function RegistrationForm() {
         watch,
         formState: {errors},
     } = useForm<Inputs>();
-    const {user} = useUser();
+    const { user } = useUser();
     const router = useRouter();
     const password = watch("password", "");
     const username = watch("username", "");
@@ -46,7 +46,7 @@ export function RegistrationForm() {
         if (user) {
             router.push("/");
         }
-    }, [user]);
+    }, [router, user]);
 
     return (
         <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSubmit)}>

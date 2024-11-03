@@ -1,11 +1,11 @@
 "use client";
 
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {useEffect} from "react";
+import {useRouter} from "next/navigation";
 import toast from "react-hot-toast";
 import {login} from "@api/auth";
-import {useUser} from "@hooks/useUser";
+import {useUser} from "@contexts/UserContext";
 
 type Inputs = {
   username: string;
@@ -20,7 +20,7 @@ export function LoginForm() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const {user} = useUser();
+  const { user, setUser } = useUser();
   const router = useRouter();
   const username = watch("username", "");
   const password = watch("password", "");
@@ -36,7 +36,7 @@ export function LoginForm() {
         toast.error("Neplatné údaje!");
       } else {
         toast.success("Přihlášení proběhlo úspěšně!");
-        localStorage.setItem("user", JSON.stringify(loginResponse.user));
+        setUser(loginResponse.user);
         router.push("/");
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -47,7 +47,7 @@ export function LoginForm() {
     if (user) {
       router.push("/");
     }
-  }, [user]);
+  }, [router, user]);
 
   return (
     <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSubmit)}>

@@ -1,13 +1,15 @@
-
-import {UserType} from "@/app/types/UserType";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
+import {useUser} from "@contexts/UserContext";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 
-export function UserChip({user}: {user?: UserType}) {
+export function UserChip() {
     const router = useRouter();
+    const { user, setUser } = useUser();
 
     const handleLogout = () => {
-        localStorage.removeItem("user");
+        setUser(undefined);
         router.push("/");
     };
 
@@ -22,15 +24,21 @@ export function UserChip({user}: {user?: UserType}) {
 
     return (
         <div className="flex items-center space-x-4 w-full justify-between">
-            <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
-                {user.name.substring(0, 2).toUpperCase()}
-            </div>
-            <div>
-                <p className="font-semibold">{user.name}</p>
-                <p className="text-gray-500">{user.username}</p>
+            <div className="flex gap-2">
+                <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
+                    {user.name.substring(0, 2).toUpperCase()}
+                </div>
+                <div>
+                    <p className="font-semibold">{user.name}</p>
+                    <p className="text-gray-500">{user.username}</p>
+                </div>
             </div>
 
-            <button className="p-2 bg-red-500 text-white rounded-lg" onClick={handleLogout}>Logout</button>
+            <button
+                className="p-2 aspect-square flex items-center transition-all duration-300 justify-center bg-red-500/50 hover:bg-red-500 border border-red-500 text-white rounded-full"
+                onClick={handleLogout}>
+                <FontAwesomeIcon icon={faArrowRightFromBracket} size="lg"/>
+            </button>
         </div>
     )
 }
