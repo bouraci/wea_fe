@@ -8,6 +8,8 @@ import {Toaster} from "react-hot-toast";
 import {Sidebar} from "@components/page";
 import {FilterProvider} from "@contexts/FilterContext";
 import {UserProvider} from "@contexts/UserContext";
+import {NextIntlClientProvider} from "next-intl";
+import {getLocale, getMessages} from "next-intl/server";
 
 config.autoAddCss = false;
 
@@ -18,12 +20,16 @@ export const metadata: Metadata = {
     description: "WEA course project",
 };
 
-export default function RootLayout({children}: Readonly<{
+export default async function RootLayout({children}: Readonly<{
     children: ReactNode;
 }>) {
+    const locale = await getLocale();
+    const messages = await getMessages();
+
     return (
-        <html lang="en" className="h-full w-full">
+        <html lang={locale} className="h-full w-full">
             <body className={clsx(inter.className, "flex h-full w-full overflow-hidden")}>
+            <NextIntlClientProvider messages={messages}>
                 <UserProvider>
                     <FilterProvider>
                         <Toaster position="top-right"/>
@@ -33,6 +39,7 @@ export default function RootLayout({children}: Readonly<{
                         </main>
                     </FilterProvider>
                 </UserProvider>
+            </NextIntlClientProvider>
             </body>
         </html>
     );

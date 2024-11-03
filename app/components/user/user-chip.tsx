@@ -3,21 +3,25 @@ import Link from "next/link";
 import {useUser} from "@contexts/UserContext";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
+import {useTranslations} from "next-intl";
+import toast from "react-hot-toast";
 
 export function UserChip() {
     const router = useRouter();
     const { user, setUser } = useUser();
+    const t = useTranslations('login');
 
     const handleLogout = () => {
         setUser(undefined);
+        toast.success(t('logoutSuccess'));
         router.push("/");
     };
 
     if (!user) {
         return (
             <div className="flex items-center space-x-4  w-full justify-between">
-                <p className="font-semibold">Not logged in</p>
-                <Link className="p-2 px-4 bg-zinc-500 rounded-lg hover:bg-zinc-600 transition-all" href="/auth/signin">Login</Link>
+                <p className="font-semibold">{t('notLoggedIn')}</p>
+                <Link className="p-2 px-4 rounded-lg bg-zinc-500/50 hover:bg-zinc-500 border border-zinc-500 transition-all duration-300" href="/auth/signin">{t('login')}</Link>
             </div>
         );
     }

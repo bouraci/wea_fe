@@ -6,17 +6,26 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { PLACEHOLDER_BOOK_COVER_URL } from "@/app/constants";
 import {CommentList} from "@components/comment";
+import {useTranslations} from "next-intl";
+import {Rating} from "@components/rating";
 
 export function BookDetail({ book }: { book: BookType }) {
+    const t = useTranslations("common");
     return (
         <div className="p-2 flex flex-col gap-2">
-            <h1 className="text-4xl font-bold mb-4">{book.title}</h1>
+            <span className="mb-4">
+                <h1 className="text-4xl font-bold">{book.title}</h1>
+                <span className="flex gap-2 items-center">
+                    <Rating value={book.rating}/>
+                    {book.rating}
+                </span>
+            </span>
             <Link
                 href="/"
-                className="w-max font-bold block p-2 bg-green-500/20 hover:bg-green-900/80 transition-all duration-300 rounded-lg mb-6"
+                className="w-max font-bold block p-2 bg-green-800/50 hover:bg-green-800 border border-green-800 transition-all duration-300 rounded-lg mb-6"
             >
                 <FontAwesomeIcon icon={faArrowLeft} className="mr-2" size="lg" />
-                Back to list
+                {t('backToList')}
             </Link>
 
             <Card>
@@ -30,13 +39,13 @@ export function BookDetail({ book }: { book: BookType }) {
                         className="rounded-lg"
                     />
 
-                    <label>Title</label>
+                    <label>{t("title")}</label>
                     <input type="text" value={book.title} readOnly className="border p-1 rounded" />
 
-                    <label>Subtitle</label>
+                    <label>{t("subtitle")}</label>
                     <input type="text" value={book.subtitle} readOnly className="border p-1 rounded" />
 
-                    <label>Authors</label>
+                    <label>{t("authors")}</label>
                     <input type="text" value={book.authors.split(";").join(", ")} readOnly className="border p-1 rounded" />
 
                     <label>ISBN-10</label>
@@ -45,19 +54,16 @@ export function BookDetail({ book }: { book: BookType }) {
                     <label>ISBN-13</label>
                     <input type="text" value={book.isbN13} readOnly className="border p-1 rounded" />
 
-                    <label>Published Date</label>
+                    <label>{t("publicationYear")}</label>
                     <input type="text" value={book.publicationYear.toString()} readOnly className="border p-1 rounded" />
 
-                    <label>Genre</label>
+                    <label>{t("genre")}</label>
                     <input type="text" value={book.genre} readOnly className="border p-1 rounded" />
 
-                    <label>Rating</label>
-                    <input type="text" value={book.rating.toFixed(1)} readOnly className="border p-1 rounded" />
-
-                    <label>Page Count</label>
+                    <label>{t("pageCount")}</label>
                     <input type="text" value={book.pageCount} readOnly className="border p-1 rounded" />
 
-                    <label>Description</label>
+                    <label>{t("description")}</label>
                     <textarea value={book.description} readOnly className="border bg-zinc-600 p-1 rounded h-32" />
                 </div>
             </Card>

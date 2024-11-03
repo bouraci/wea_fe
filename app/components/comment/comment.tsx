@@ -5,7 +5,7 @@ export function Comment({ comment }: { comment: BookCommentType }) {
         <div>
             <div className="p-2 bg-zinc-600 rounded-lg">
                 <p className="font-bold">{comment.creatorUserName}</p>
-                <p className="">{comment.content}</p>
+                <p>{comment.content}</p>
             </div>
             <small>{new Date(comment.createdDate).toLocaleString("cs-CZ")}</small>
         </div>

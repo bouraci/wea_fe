@@ -6,6 +6,7 @@ import {useEffect} from "react";
 import {register as userRegister} from "@api/auth";
 import toast from "react-hot-toast";
 import {useUser} from "@contexts/UserContext";
+import {useTranslations} from "next-intl";
 
 type Inputs = {
     name: string;
@@ -26,6 +27,7 @@ export function RegistrationForm() {
     const password = watch("password", "");
     const username = watch("username", "");
     const name = watch("name", "");
+    const t = useTranslations("login");
 
     const onSubmit: SubmitHandler<Inputs> = async () => {
         const registerResponse = await userRegister(
@@ -34,11 +36,13 @@ export function RegistrationForm() {
             name
         );
 
-        if (!registerResponse || !registerResponse.code || registerResponse.code !== 201) {
-            toast.error("Registrace se nezdařila!");
-        } else {
-            toast.success("Registrace proběhla úspěšně!");
+        if (registerResponse.code == 201) {
+            toast.success(t('registerSuccess'));
             router.push("/auth/signin");
+        } else if (registerResponse.code == 409) {
+            toast.error(t('accountAlreadyExists'));
+        } else {
+            toast.error(t('registerFailed'));
         }
     }
 
@@ -52,44 +56,47 @@ export function RegistrationForm() {
         <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <input
                 type="text"
-                placeholder="Jméno"
+                placeholder={t('name')}
                 className="p-2 border border-gray-300 rounded-lg"
-                {...register("name", {required: "Je potřeba vaše jméno"})}
+                {...register("name", {required: t('nameRequired')})}
             />
-            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+            {errors.name && <small className="text-red-500">{errors.name.message}</small>}
             <input
                 type="text"
-                placeholder="Username"
+                placeholder={t('username')}
                 className="p-2 border border-gray-300 rounded-lg"
-                {...register("username", {required: "Je potřeba uživatelské jméno"})}
+                {...register("username", {required: t('usernameRequired')})}
             />
-            {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+            {errors.username && <small className="text-red-500">{errors.username.message}</small>}
             <input
                 type="password"
-                placeholder="Heslo"
+                placeholder={t('password')}
                 className="p-2 border border-gray-300 rounded-lg"
                 {...register("password", {
-                    required: "Zadejte heslo pro přihlášení",
-                    minLength: 8,
+                    required: t('passwordRequired'),
+                    minLength: {
+                        value: 8,
+                        message: t('passwordMinLength'),
+                    },
                 })}
             />
             {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
+                <small className="text-red-500">{errors.password.message}</small>
             )}
             <input
                 type="password"
-                placeholder="Potvrzení hesla"
+                placeholder={t('passwordConfirm')}
                 className="p-2 border border-gray-300 rounded-lg"
                 {...register("passwordConfirmation", {
-                    required: "Je potřeba potvrdit heslo",
-                    validate: (value) => value === password || "Hesla se neshodují",
+                    required: t('passwordConfirmRequired'),
+                    validate: (value) => value === password || t('passwordMatch'),
                 })}
             />
             {errors.passwordConfirmation && (
-                <p className="text-red-500">{errors.passwordConfirmation.message}</p>
+                <small className="text-red-500">{errors.passwordConfirmation.message}</small>
             )}
-            <button className="p-2 bg-blue-500 text-white rounded-lg" type="submit">
-                Registrovat
+            <button className="p-2 bg-blue-500/50 hover:bg-blue-500 border border-blue-500 transition-all duration-300 text-white rounded-lg" type="submit">
+                {t('register')}
             </button>
         </form>
     );
