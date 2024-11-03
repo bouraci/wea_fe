@@ -5,10 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { PLACEHOLDER_BOOK_COVER_URL } from "@/app/constants";
+import {CommentList} from "@components/comment";
 
 export function BookDetail({ book }: { book: BookType }) {
     return (
-        <div className="p-4">
+        <div className="p-2 flex flex-col gap-2">
             <h1 className="text-4xl font-bold mb-4">{book.title}</h1>
             <Link
                 href="/"
@@ -20,7 +21,7 @@ export function BookDetail({ book }: { book: BookType }) {
 
             <Card>
                 <div className="grid grid-cols-[max-content_1fr] mt-4 gap-2">
-                    <label>Cover Image</label>
+                    <label></label>
                     <Image
                         src={book.coverImageUrl.length === 0 ? PLACEHOLDER_BOOK_COVER_URL : book.coverImageUrl}
                         alt={book.title}
@@ -60,6 +61,8 @@ export function BookDetail({ book }: { book: BookType }) {
                     <textarea value={book.description} readOnly className="border bg-zinc-600 p-1 rounded h-32" />
                 </div>
             </Card>
+
+            <CommentList comments={book.comments} bookId={book.id} />
         </div>
     );
 }

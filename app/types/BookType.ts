@@ -11,5 +11,18 @@ export type BookType = {
     publicationYear: number,
     rating: number,
     pageCount: number,
-    totalRatings: number
+    totalRatings: number,
+    comments: BookCommentType[],
+}
+
+export type BookCommentType = {
+    content: string,
+    createdDate: string,
+    creatorUserName: string,
+}
+
+export type BookCommentRequestType = {
+    content: string,
+    bookId: number,
+    userName: string,
 }
