@@ -8,9 +8,13 @@ import { PLACEHOLDER_BOOK_COVER_URL } from "@/app/constants";
 import { CommentList } from "@components/comment";
 import { useTranslations } from "next-intl";
 import { Rating } from "@components/rating";
+import miregBad from "assets/mireg-bad.png";
+import miregGood from "assets/mireg-good.png";
 
 export function BookDetail({ book }: { book: BookType }) {
   const t = useTranslations("common");
+  const mireg = book.rating >= 4 ? miregGood : miregBad;
+
   return (
     <div className="p-2 flex flex-col gap-2">
       <span className="mb-4">
@@ -31,12 +35,9 @@ export function BookDetail({ book }: { book: BookType }) {
       <Card>
         <div className="grid grid-cols-[max-content_1fr] mt-4 gap-2">
           <label></label>
+
           <Image
-            src={
-              book.coverImageUrl.length === 0
-                ? PLACEHOLDER_BOOK_COVER_URL
-                : book.coverImageUrl
-            }
+            src={mireg}
             alt={book.title}
             height={200}
             width={150}

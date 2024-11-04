@@ -4,8 +4,11 @@ import { PLACEHOLDER_BOOK_COVER_URL } from "@/app/constants";
 import { Rating } from "@components/rating";
 import { BookListItemType } from "@/app/types/BookListType";
 import { Chip } from "@components/chip";
+import miregGood from "assets/mireg-good.png";
+import miregBad from "assets/mireg-bad.png";
 
 export function BookListItem({ book }: { book: BookListItemType }) {
+  const mireg = book.rating >= 4 ? miregGood : miregBad;
   return (
     <Link
       href={`/books/${book.id}`}
@@ -13,11 +16,7 @@ export function BookListItem({ book }: { book: BookListItemType }) {
     >
       <div className="flex gap-4">
         <Image
-          src={
-            book.coverImageUrl.length === 0
-              ? PLACEHOLDER_BOOK_COVER_URL
-              : book.coverImageUrl
-          }
+          src={mireg}
           className="rounded-lg object-contain"
           alt={book.title}
           height={100}
