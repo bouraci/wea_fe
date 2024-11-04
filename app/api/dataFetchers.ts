@@ -1,11 +1,11 @@
 export async function loadData() {
-    const response = await fetch(`/api/data/csv`, {
-        method: 'POST',
-    });
+  const response = await fetch(`/api/data/csv`, {
+    method: "POST",
+  });
 
-    if (response.ok) {
-        return await response.text();
-    }
+  if (response.ok) {
+    return await response.text();
+  }
 
-    return null;
+  return null;
 }

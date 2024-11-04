@@ -20,21 +20,11 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@components/*": [
-        "app/components/*"
-      ],
-      "@utils/*": [
-        "app/utils/*"
-      ],
-      "@api/*": [
-        "app/api/*"
-      ],
-      "@hooks/*": [
-        "app/hooks/*"
-      ],
-      "@contexts/*": [
-        "app/contexts/*"
-      ],
+      "@components/*": ["app/components/*"],
+      "@utils/*": ["app/utils/*"],
+      "@api/*": ["app/api/*"],
+      "@hooks/*": ["app/hooks/*"],
+      "@contexts/*": ["app/contexts/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

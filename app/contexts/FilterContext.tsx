@@ -4,61 +4,61 @@ import { createContext, useState, ReactNode, useContext } from "react";
 import { BookFilterType } from "@/app/types/BookFilterType";
 
 type FilterContextType = {
-    tempFilters: BookFilterType;
-    appliedFilters: BookFilterType;
-    page: number;
-    setTempFilters: (filters: Partial<BookFilterType>) => void;
-    applyFilters: () => void;
-    setPage: (page: number) => void;
+  tempFilters: BookFilterType;
+  appliedFilters: BookFilterType;
+  page: number;
+  setTempFilters: (filters: Partial<BookFilterType>) => void;
+  applyFilters: () => void;
+  setPage: (page: number) => void;
 };
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
 export function useFilter() {
-    const context = useContext(FilterContext);
-    if (!context) {
-        throw new Error("useFilter must be used within a FilterProvider");
-    }
-    return context;
+  const context = useContext(FilterContext);
+  if (!context) {
+    throw new Error("useFilter must be used within a FilterProvider");
+  }
+  return context;
 }
 
 export function FilterProvider({ children }: { children: ReactNode }) {
-    const [tempFilters, setTempFiltersState] = useState<BookFilterType>({
-        title: "",
-        author: "",
-        genre: "",
-        publicationYear: "",
-        minRating: "",
-        maxRating: "",
-    });
+  const [tempFilters, setTempFiltersState] = useState<BookFilterType>({
+    title: "",
+    author: "",
+    genre: "",
+    publicationYear: "",
+    minRating: "",
+    maxRating: "",
+  });
 
-    const [appliedFilters, setAppliedFilters] = useState<BookFilterType>({
-        ...tempFilters,
-    });
+  const [appliedFilters, setAppliedFilters] = useState<BookFilterType>({
+    ...tempFilters,
+  });
 
-    const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
 
-    const setTempFilters = (newFilters: Partial<BookFilterType>) => {
-        setTempFiltersState((prev) => ({ ...prev, ...newFilters }));
-    };
+  const setTempFilters = (newFilters: Partial<BookFilterType>) => {
+    setTempFiltersState((prev) => ({ ...prev, ...newFilters }));
+  };
 
-    const applyFilters = () => {
-        setAppliedFilters({ ...tempFilters });
-        setPage(1);
-    };
+  const applyFilters = () => {
+    setAppliedFilters({ ...tempFilters });
+    setPage(1);
+  };
 
-    return (
-        <FilterContext.Provider
-            value={{
-                tempFilters,
-                appliedFilters,
-                page,
-                setTempFilters,
-                applyFilters,
-                setPage,
-            }}
-        >
-            {children}
-        </FilterContext.Provider>
-    );
+  return (
+    <FilterContext.Provider
+      value={{
+        tempFilters,
+        appliedFilters,
+        page,
+        setTempFilters,
+        applyFilters,
+        setPage,
+      }}
+    >
+      {children}
+    </FilterContext.Provider>
+  );
 }

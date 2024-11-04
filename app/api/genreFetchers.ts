@@ -1,7 +1,7 @@
 export async function getAllGenres() {
-    const response = await fetch(`/api/books/genres`, {
-        method: 'GET',
-    });
+  const response = await fetch(`/api/books/genres`, {
+    method: "GET",
+  });
 
-    return await response.json();
+  return await response.json();
 }

@@ -8,7 +8,12 @@ interface Props {
   subheading?: string;
 }
 
-export function Card({ children, className, heading, subheading }: Props): ReactNode {
+export function Card({
+  children,
+  className,
+  heading,
+  subheading,
+}: Props): ReactNode {
   return (
     <div
       className={clsx("bg-zinc-700 p-4 rounded-xl flex flex-col", className)}

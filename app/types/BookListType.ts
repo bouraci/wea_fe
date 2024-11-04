@@ -1,19 +1,19 @@
 export type BookListItemType = {
-    id: number,
-    title: string,
-    subtitle: string,
-    authors: string,
-    genre: string,
-    coverImageUrl: string,
-    publicationYear: number,
-    rating: number,
-    totalRatings: number
-}
+  id: number;
+  title: string;
+  subtitle: string;
+  authors: string;
+  genre: string;
+  coverImageUrl: string;
+  publicationYear: number;
+  rating: number;
+  totalRatings: number;
+};
 
 export type BookListType = {
-    totalRecords: number,
-    totalPages: number,
-    page: number,
-    pageSize: number,
-    books: BookListItemType[]
-}
+  totalRecords: number;
+  totalPages: number;
+  page: number;
+  pageSize: number;
+  books: BookListItemType[];
+};
