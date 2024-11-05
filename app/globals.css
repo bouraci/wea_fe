@@ -29,27 +29,11 @@
     }
 
     input,select,textarea {
-        @apply bg-zinc-600 rounded-lg p-2
-    }
-
-    button {
-        @apply bg-blue-500/50 hover:bg-blue-500 p-2 rounded-lg border-blue-500 transition-all duration-300 border;
+        @apply bg-zinc-600 p-2 border border-zinc-300/50 rounded-lg
     }
 
     .card-list-item > p {
         @apply flex-1;
-    }
-
-    label {
-        @apply text-right;
-    }
-
-    .filter-group {
-        @apply flex flex-col gap-2;
-    }
-
-    .filter-group > label {
-        @apply text-left;
     }
 
     .pagination > button {

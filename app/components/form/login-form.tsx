@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import { login } from "@api/auth";
 import { useUser } from "@contexts/UserContext";
 import { useTranslations } from "next-intl";
+import { FormInput } from "@components/input";
+import { Button } from "@components/button";
 
 type Inputs = {
   username: string;
@@ -47,33 +49,24 @@ export function LoginForm() {
   }, [router, user]);
 
   return (
-    <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSubmit)}>
-      <input
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <FormInput
         type="text"
         placeholder={t("username")}
-        className="p-2 border border-gray-300 rounded-lg"
+        error={errors.username && errors.username.message}
         {...register("username", {
           required: t("usernameRequired"),
         })}
       />
-      {errors.username && (
-        <small className="text-red-500">{errors.username.message}</small>
-      )}
-      <input
+      <FormInput
         type="password"
         placeholder={t("password")}
-        className="p-2 border border-gray-300 rounded-lg"
-        {...register("password", { required: t("passwordRequired") })}
+        error={errors.password && errors.password.message}
+        {...register("password", {
+          required: t("passwordRequired"),
+        })}
       />
-      {errors.password && (
-        <small className="text-red-500">{errors.password.message}</small>
-      )}
-      <button
-        className="p-2 bg-blue-500/50 hover:bg-blue-500 border border-blue-500 transition-all duration-300 text-white rounded-lg"
-        type="submit"
-      >
-        {t("login")}
-      </button>
+      <Button type="submit" label={t("login")} />
     </form>
   );
 }

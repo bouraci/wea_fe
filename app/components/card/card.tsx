@@ -15,12 +15,10 @@ export function Card({
   subheading,
 }: Props): ReactNode {
   return (
-    <div
-      className={clsx("bg-zinc-700 p-4 rounded-xl flex flex-col", className)}
-    >
+    <div className="bg-zinc-700 p-4 rounded-xl flex flex-col">
       {heading && <h3>{heading}</h3>}
       {subheading && <small>{subheading}</small>}
-      <div className="mt-4">{children}</div>
+      <div className={clsx("mt-4", className)}>{children}</div>
     </div>
   );
 }
