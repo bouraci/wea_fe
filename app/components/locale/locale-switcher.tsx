@@ -1,5 +1,6 @@
 "use client";
 
+import { LabeledSelect } from "@components/input";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import Cookies from "js-cookie";
@@ -19,22 +20,19 @@ export function LocaleSwitcher() {
   };
 
   return (
-    <div>
-      <label htmlFor="locale-select" className="mr-2">
-        {t("language")}:
-      </label>
-      <select
-        id="locale-select"
-        value={locale}
-        onChange={handleLocaleChange}
-        className="p-2 border rounded"
-      >
-        {LOCALES.map((lang) => (
-          <option key={lang} value={lang}>
-            {lang.toUpperCase()}
-          </option>
-        ))}
-      </select>
-    </div>
+    <LabeledSelect
+      className="w-max"
+      label={t("language")}
+      id="locale"
+      value={locale}
+      onChange={handleLocaleChange}
+      labelInline={true}
+    >
+      {LOCALES.map((lang) => (
+        <option key={lang} value={lang}>
+          {lang.toUpperCase()}
+        </option>
+      ))}
+    </LabeledSelect>
   );
 }
