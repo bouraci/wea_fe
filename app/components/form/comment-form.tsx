@@ -1,4 +1,5 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { RatingInput } from "@components/rating";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useUser } from "@contexts/UserContext";
 import { postBookComment } from "@api/commentFetchers";
 import { mutate } from "swr";
@@ -8,12 +9,14 @@ import { Button } from "@components/button";
 
 type Inputs = {
   comment: string;
+  rating: number;
 };
 
 export function CommentForm({ bookId }: { bookId: number }) {
   const { user } = useUser();
   const {
     register,
+    control,
     handleSubmit,
     watch,
     reset,
@@ -26,6 +29,7 @@ export function CommentForm({ bookId }: { bookId: number }) {
   }
 
   const comment = watch("comment", "");
+  const rating = watch("rating", 0);
 
   const onSubmit: SubmitHandler<Inputs> = async () => {
     try {
@@ -33,7 +37,7 @@ export function CommentForm({ bookId }: { bookId: number }) {
         content: comment,
         userName: user.username,
         bookId: bookId,
-        rating: 0,
+        rating: rating,
       });
 
       if (response) {
@@ -47,7 +51,14 @@ export function CommentForm({ bookId }: { bookId: number }) {
   };
 
   return (
-    <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="rating"
+        control={control}
+        render={({ field }) => (
+          <RatingInput value={field.value} onChange={field.onChange} />
+        )}
+      />
       <textarea
         className="h-24"
         placeholder="Yap about the book here..."

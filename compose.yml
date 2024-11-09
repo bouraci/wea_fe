@@ -38,6 +38,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8006:8080"
+    environment:
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     volumes:
       - /home/cerny/logs/sk07:/home/app/logs
     networks:

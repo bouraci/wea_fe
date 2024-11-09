@@ -17,7 +17,7 @@ export function BookDetail({ book }: { book: BookType }) {
       <span className="mb-4">
         <h1 className="text-4xl font-bold">{book.title}</h1>
         <span className="flex gap-2 items-center">
-          <Rating value={book.rating} />
+          <Rating value={book.rating} size="lg" />
           {book.rating}
         </span>
       </span>
