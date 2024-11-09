@@ -4,6 +4,7 @@ import { postBookComment } from "@api/commentFetchers";
 import { mutate } from "swr";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
+import { Button } from "@components/button";
 
 type Inputs = {
   comment: string;
@@ -45,8 +46,8 @@ export function CommentForm({ bookId }: { bookId: number }) {
   return (
     <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
       <textarea
-        className="border p-1 rounded h-24"
-        placeholder="Yap here"
+        className="h-24"
+        placeholder="Yap about the book here..."
         {...register("comment", {
           required: t("warnEmptyComment"),
         })}
@@ -55,12 +56,7 @@ export function CommentForm({ bookId }: { bookId: number }) {
         <small className="text-red-500">{errors.comment.message}</small>
       )}
 
-      <button
-        className="px-2 w-max py-1 text-sm bg-blue-500/50 hover:bg-blue-500 border border-blue-500 transition-all duration-300 rounded-lg"
-        type="submit"
-      >
-        {t("addComment")}
-      </button>
+      <Button className="w-max" type="submit" label={t("addComment")} />
     </form>
   );
 }

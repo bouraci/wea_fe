@@ -7,6 +7,8 @@ import { register as userRegister } from "@api/auth";
 import toast from "react-hot-toast";
 import { useUser } from "@contexts/UserContext";
 import { useTranslations } from "next-intl";
+import { Button } from "@components/button";
+import { FormInput } from "@components/input";
 
 type Inputs = {
   name: string;
@@ -49,29 +51,23 @@ export function RegistrationForm() {
   }, [router, user]);
 
   return (
-    <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSubmit)}>
-      <input
+    <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+      <FormInput
         type="text"
         placeholder={t("name")}
-        className="p-2 border border-gray-300 rounded-lg"
+        error={errors.name && errors.name.message}
         {...register("name", { required: t("nameRequired") })}
       />
-      {errors.name && (
-        <small className="text-red-500">{errors.name.message}</small>
-      )}
-      <input
+      <FormInput
         type="text"
         placeholder={t("username")}
-        className="p-2 border border-gray-300 rounded-lg"
+        error={errors.username && errors.username.message}
         {...register("username", { required: t("usernameRequired") })}
       />
-      {errors.username && (
-        <small className="text-red-500">{errors.username.message}</small>
-      )}
-      <input
+      <FormInput
         type="password"
         placeholder={t("password")}
-        className="p-2 border border-gray-300 rounded-lg"
+        error={errors.password && errors.password.message}
         {...register("password", {
           required: t("passwordRequired"),
           minLength: {
@@ -80,29 +76,18 @@ export function RegistrationForm() {
           },
         })}
       />
-      {errors.password && (
-        <small className="text-red-500">{errors.password.message}</small>
-      )}
-      <input
+      <FormInput
         type="password"
         placeholder={t("passwordConfirm")}
-        className="p-2 border border-gray-300 rounded-lg"
+        error={
+          errors.passwordConfirmation && errors.passwordConfirmation.message
+        }
         {...register("passwordConfirmation", {
           required: t("passwordConfirmRequired"),
           validate: (value) => value === password || t("passwordMatch"),
         })}
       />
-      {errors.passwordConfirmation && (
-        <small className="text-red-500">
-          {errors.passwordConfirmation.message}
-        </small>
-      )}
-      <button
-        className="p-2 bg-blue-500/50 hover:bg-blue-500 border border-blue-500 transition-all duration-300 text-white rounded-lg"
-        type="submit"
-      >
-        {t("register")}
-      </button>
+      <Button label={t("register")} type="submit" />
     </form>
   );
 }

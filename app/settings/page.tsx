@@ -3,6 +3,7 @@
 import { Card } from "@components/card";
 import { loadData } from "@api/dataFetchers";
 import toast from "react-hot-toast";
+import { Button } from "@components/button";
 
 export default function Settings() {
   async function handleLoadData() {
@@ -18,7 +19,7 @@ export default function Settings() {
   return (
     <div className="flex flex-col gap-2">
       <Card heading="Settings">
-        <button onClick={() => handleLoadData()}>Load Data</button>
+        <Button label="Load Data" onClick={() => handleLoadData()} />
       </Card>
     </div>
   );

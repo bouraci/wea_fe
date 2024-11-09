@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
+import { Button } from "@components/button";
 
 export function UserChip() {
   const router = useRouter();
@@ -19,12 +20,9 @@ export function UserChip() {
 
   if (!user) {
     return (
-      <div className="flex items-center space-x-4  w-full justify-between">
+      <div className="flex items-center space-x-4 w-full justify-between">
         <p className="font-semibold">{t("notLoggedIn")}</p>
-        <Link
-          className="p-2 px-4 rounded-lg bg-zinc-500/50 hover:bg-zinc-500 border border-zinc-500 transition-all duration-300"
-          href="/auth/signin"
-        >
+        <Link className="button button--gray" href="/auth/signin">
           {t("login")}
         </Link>
       </div>
@@ -43,12 +41,12 @@ export function UserChip() {
         </div>
       </div>
 
-      <button
-        className="p-2 aspect-square flex items-center transition-all duration-300 justify-center bg-red-500/50 hover:bg-red-500 border border-red-500 text-white rounded-full"
+      <Button
+        className="aspect-square rounded-full"
+        icon={<FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />}
         onClick={handleLogout}
-      >
-        <FontAwesomeIcon icon={faArrowRightFromBracket} size="lg" />
-      </button>
+        variant="bad"
+      />
     </div>
   );
 }

@@ -9,6 +9,7 @@ type FilterContextType = {
   page: number;
   setTempFilters: (filters: Partial<BookFilterType>) => void;
   applyFilters: () => void;
+  clearFilters: () => void;
   setPage: (page: number) => void;
 };
 
@@ -23,19 +24,19 @@ export function useFilter() {
 }
 
 export function FilterProvider({ children }: { children: ReactNode }) {
-  const [tempFilters, setTempFiltersState] = useState<BookFilterType>({
+  const initialFilters: BookFilterType = {
     title: "",
     author: "",
     genre: "",
     publicationYear: "",
     minRating: "",
     maxRating: "",
-  });
+  };
 
-  const [appliedFilters, setAppliedFilters] = useState<BookFilterType>({
-    ...tempFilters,
-  });
-
+  const [tempFilters, setTempFiltersState] =
+    useState<BookFilterType>(initialFilters);
+  const [appliedFilters, setAppliedFilters] =
+    useState<BookFilterType>(initialFilters);
   const [page, setPage] = useState(1);
 
   const setTempFilters = (newFilters: Partial<BookFilterType>) => {
@@ -47,6 +48,12 @@ export function FilterProvider({ children }: { children: ReactNode }) {
     setPage(1);
   };
 
+  const clearFilters = () => {
+    setTempFiltersState(initialFilters);
+    setAppliedFilters(initialFilters);
+    setPage(1);
+  };
+
   return (
     <FilterContext.Provider
       value={{
@@ -55,6 +62,7 @@ export function FilterProvider({ children }: { children: ReactNode }) {
         page,
         setTempFilters,
         applyFilters,
+        clearFilters,
         setPage,
       }}
     >

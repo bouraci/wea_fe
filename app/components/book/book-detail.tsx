@@ -1,5 +1,6 @@
 import { BookType } from "@/app/types/BookType";
 import { Card } from "@components/card";
+import { LabeledInput } from "@components/input";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -20,17 +21,13 @@ export function BookDetail({ book }: { book: BookType }) {
           {book.rating}
         </span>
       </span>
-      <Link
-        href="/"
-        className="w-max font-bold block p-2 bg-green-800/50 hover:bg-green-800 border border-green-800 transition-all duration-300 rounded-lg mb-6"
-      >
+      <Link href="/" className="button button--good mb-6 w-max">
         <FontAwesomeIcon icon={faArrowLeft} className="mr-2" size="lg" />
         {t("backToList")}
       </Link>
 
-      <Card>
-        <div className="grid grid-cols-[max-content_1fr] mt-4 gap-2">
-          <label></label>
+      <Card className="space-y-2">
+        <div className="flex gap-2">
           <Image
             src={
               book.coverImageUrl.length === 0
@@ -42,78 +39,30 @@ export function BookDetail({ book }: { book: BookType }) {
             width={150}
             className="rounded-lg"
           />
-
-          <label>{t("title")}</label>
-          <input
-            type="text"
-            value={book.title}
-            readOnly
-            className="border p-1 rounded"
-          />
-
-          <label>{t("subtitle")}</label>
-          <input
-            type="text"
-            value={book.subtitle}
-            readOnly
-            className="border p-1 rounded"
-          />
-
-          <label>{t("authors")}</label>
-          <input
-            type="text"
-            value={book.authors.split(";").join(", ")}
-            readOnly
-            className="border p-1 rounded"
-          />
-
-          <label>ISBN-10</label>
-          <input
-            type="text"
-            value={book.isbN10}
-            readOnly
-            className="border p-1 rounded"
-          />
-
-          <label>ISBN-13</label>
-          <input
-            type="text"
-            value={book.isbN13}
-            readOnly
-            className="border p-1 rounded"
-          />
-
-          <label>{t("publicationYear")}</label>
-          <input
-            type="text"
-            value={book.publicationYear.toString()}
-            readOnly
-            className="border p-1 rounded"
-          />
-
-          <label>{t("genre")}</label>
-          <input
-            type="text"
-            value={book.genre}
-            readOnly
-            className="border p-1 rounded"
-          />
-
-          <label>{t("pageCount")}</label>
-          <input
-            type="text"
-            value={book.pageCount}
-            readOnly
-            className="border p-1 rounded"
-          />
-
-          <label>{t("description")}</label>
-          <textarea
-            value={book.description}
-            readOnly
-            className="border bg-zinc-600 p-1 rounded h-32"
-          />
+          <div className="border bg-zinc-600 p-2 rounded-lg w-full">
+            {book.description}
+          </div>
         </div>
+
+        <LabeledInput label={t("subtitle")} value={book.subtitle} readOnly />
+        <LabeledInput
+          label={t("authors")}
+          value={book.authors.split(";").join(", ")}
+          readOnly
+        />
+        <LabeledInput label="ISBN-10" value={book.isbN10} readOnly />
+        <LabeledInput label="ISBN-13" value={book.isbN13} readOnly />
+        <LabeledInput
+          label={t("publicationYear")}
+          value={book.publicationYear.toString()}
+          readOnly
+        />
+        <LabeledInput label={t("genre")} value={book.genre} readOnly />
+        <LabeledInput
+          label={t("pageCount")}
+          value={book.pageCount.toString()}
+          readOnly
+        />
       </Card>
 
       <CommentList comments={book.comments} bookId={book.id} />
