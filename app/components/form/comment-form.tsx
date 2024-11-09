@@ -29,18 +29,21 @@ export function CommentForm({ bookId }: { bookId: number }) {
 
   const onSubmit: SubmitHandler<Inputs> = async () => {
     try {
-      await postBookComment({
+      const response = await postBookComment({
         content: comment,
         userName: user.username,
         bookId: bookId,
+        rating: 0,
       });
 
-      toast.success(t("commentAddedSuccess"));
-      reset();
-      await mutate("getBooksDetail");
-    } catch {
-      toast.error(t("commentAddedFailed"));
-    }
+      if (response) {
+        toast.success(t("commentAddedSuccess"));
+        reset();
+        await mutate("getBooksDetail");
+      } else {
+        toast.error(t("commentAddedFailed"));
+      }
+    } catch {}
   };
 
   return (

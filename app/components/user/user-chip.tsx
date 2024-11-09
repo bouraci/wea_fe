@@ -9,11 +9,11 @@ import { Button } from "@components/button";
 
 export function UserChip() {
   const router = useRouter();
-  const { user, setUser } = useUser();
+  const { user, logout } = useUser();
   const t = useTranslations("login");
 
   const handleLogout = () => {
-    setUser(undefined);
+    logout();
     toast.success(t("logoutSuccess"));
     router.push("/");
   };

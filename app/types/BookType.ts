@@ -19,10 +19,12 @@ export type BookCommentType = {
   content: string;
   createdDate: string;
   creatorUserName: string;
+  rating: number;
 };
 
 export type BookCommentRequestType = {
   content: string;
   bookId: number;
   userName: string;
+  rating: number;
 };

@@ -32,12 +32,12 @@ export function RegistrationForm() {
   const t = useTranslations("login");
 
   const onSubmit: SubmitHandler<Inputs> = async () => {
-    const registerResponse = await userRegister(username, password, name);
+    const responseCode = await userRegister(username, password, name);
 
-    if (registerResponse.code == 201) {
+    if (responseCode == 201) {
       toast.success(t("registerSuccess"));
       router.push("/auth/signin");
-    } else if (registerResponse.code == 409) {
+    } else if (responseCode == 409) {
       toast.error(t("accountAlreadyExists"));
     } else {
       toast.error(t("registerFailed"));

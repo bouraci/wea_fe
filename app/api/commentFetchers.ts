@@ -5,9 +5,10 @@ export async function postBookComment(comment: BookCommentRequestType) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(comment),
   });
 
-  return await response.text();
+  return response.ok;
 }

@@ -1,7 +1,3 @@
-export type RegisterResponse = {
-  code: number;
-};
-
 export const login = async (username: string, password: string) => {
   const response = await fetch(`/api/auth/login`, {
     method: "POST",
@@ -13,29 +9,17 @@ export const login = async (username: string, password: string) => {
   });
 
   if (!response.ok) {
-    return {
-      user: null,
-      code: response.status,
-    };
+    return null;
   }
 
-  const data = await response.json();
-
-  return {
-    user: {
-      id: data.id,
-      name: data.name,
-      username: data.userName,
-    },
-    code: response.status,
-  };
+  return await response.text();
 };
 
 export const register = async (
   username: string,
   password: string,
   name: string,
-): Promise<RegisterResponse> => {
+) => {
   const response = await fetch(`/api/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -46,7 +30,5 @@ export const register = async (
     }),
   });
 
-  return {
-    code: response.status,
-  };
+  return response.status;
 };

@@ -23,7 +23,7 @@ export function LoginForm() {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const { user, setUser } = useUser();
+  const { user, setUserFromToken } = useUser();
   const router = useRouter();
   const username = watch("username", "");
   const password = watch("password", "");
@@ -32,11 +32,11 @@ export function LoginForm() {
     try {
       const response = await login(username, password);
 
-      if (response.user === null) {
+      if (!response) {
         toast.error(t("loginFailed"));
       } else {
         toast.success(t("loginSuccess"));
-        setUser(response.user);
+        setUserFromToken(response);
         router.push("/");
       }
     } catch {}
