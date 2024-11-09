@@ -17,8 +17,8 @@ export function LabeledInput({
   return (
     <div
       className={clsx(
-        "w-full flex gap-2",
-        labelInline ? "items-center" : "flex-col",
+        "w-full flex",
+        labelInline ? "items-center gap-2" : "flex-col gap-1",
       )}
     >
       <label
