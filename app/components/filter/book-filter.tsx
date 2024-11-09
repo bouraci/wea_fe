@@ -9,7 +9,8 @@ import { Button } from "@components/button";
 
 export function BookFilter() {
   const t = useTranslations("common");
-  const { tempFilters, setTempFilters, applyFilters } = useFilter();
+  const { tempFilters, setTempFilters, applyFilters, clearFilters } =
+    useFilter();
   const handleFilterChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -102,11 +103,17 @@ export function BookFilter() {
           disabled={!isRoot}
         />
       </div>
-      <div className="mt-4">
+      <div className="mt-4 flex justify-between">
         <Button
           label={t("applyFilter")}
           onClick={applyFilters}
           disabled={!isRoot}
+        />
+        <Button
+          label={t("resetFilter")}
+          onClick={clearFilters}
+          disabled={!isRoot}
+          variant="bad"
         />
       </div>
     </>

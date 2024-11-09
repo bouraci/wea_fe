@@ -13,6 +13,7 @@
     "minRating": "Minimální hodnocení",
     "maxRating": "Maximální hodnocení",
     "applyFilter": "Použít filtr",
+    "resetFilter": "Resetovat filtr",
     "hintTitle": "Zadejte název",
     "hintAuthor": "Zadejte autora",
     "noBooks": "Žádné knihy nenalezeny",

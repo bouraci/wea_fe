@@ -13,6 +13,7 @@
     "minRating": "Minimum Rating",
     "maxRating": "Maximum Rating",
     "applyFilter": "Apply Filter",
+    "resetFilter": "Reset Filter",
     "hintTitle": "Enter title",
     "hintAuthor": "Enter author",
     "noBooks": "No books found",
