@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "3006:3000"
+    expose:
+      - "3000"
     networks:
       - cdb-network
   wea_db:
@@ -36,14 +36,28 @@ services:
     build:
       context: ./modules/wea_be
       dockerfile: Dockerfile
-    ports:
-      - "8006:8080"
+    expose:
+      - "8080"
     environment:
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     volumes:
       - /home/cerny/logs/sk07:/home/app/logs
     networks:
       - cdb-network
+  sk07-proxy:
+    image: nginx:latest
+    container_name: sk07-proxy
+    ports:
+      - "3006:3006"
+      - "8006:8006"
+    volumes:
+      - ./proxy/default.conf:/etc/nginx/conf.d/server.conf
+      - ./proxy/certs:/etc/certs
+    networks:
+      - cdb-network
+    depends_on:
+      - wea_fe
+      - sk07-web
 networks:
   cdb-network:
     name: cdb-network
