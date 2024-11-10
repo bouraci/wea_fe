@@ -29,6 +29,8 @@ build:
 run:
 	@echo "Running Docker Compose..."
 	make clone-be
+	@echo "Generating certificates..."
+	./proxy/gencert.sh
 	docker compose up -d --build
 
 init:
