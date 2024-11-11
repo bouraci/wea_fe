@@ -103,7 +103,7 @@ export function BookFilter() {
           disabled={!isRoot}
         />
       </div>
-      <div className="mt-4 flex justify-between">
+      <div className="mt-4 flex gap-4 justify-between">
         <Button
           label={t("applyFilter")}
           onClick={applyFilters}

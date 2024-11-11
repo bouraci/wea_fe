@@ -22,7 +22,14 @@
     "pageCount": "Page Count",
     "noComments": "No comments yet",
     "comments": "Comments",
-    "bookList": "Book List"
+    "bookList": "Book List",
+    "allBooks": "All Books",
+    "favouriteBooks": "Favourite Books",
+    "addToFavourites": "Add to Favourites",
+    "bookAddedToFavourites": "Book added to favourites",
+    "bookFavoriteFailed": "Adding book to favourites failed",
+    "currentlyUnavailable": "Currently unavailable",
+    "youAlreadyRated": "You already rated this book"
   },
   "login": {
     "notLoggedIn": "You are not logged in",

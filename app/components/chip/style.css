@@ -1,0 +1,35 @@
+.chip {
+    @apply p-2 rounded-full h-max w-max font-bold flex items-center border;
+}
+
+.chip--default {
+    @apply bg-blue-500/50 border-blue-500;
+}
+
+.chip--good {
+    @apply bg-green-500/50 border-green-500;
+}
+
+.chip--bad {
+    @apply bg-red-500/50 border-red-500;
+}
+
+.chip--warning {
+    @apply bg-yellow-500/50 border-yellow-500;
+}
+
+.chip--gray {
+    @apply bg-zinc-400/50 border-zinc-400;
+}
+
+.chip--sm {
+    @apply text-xs;
+}
+
+.chip--md {
+    @apply text-sm;
+}
+
+.chip--lg {
+    @apply text-lg;
+}

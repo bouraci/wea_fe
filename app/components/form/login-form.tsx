@@ -66,7 +66,7 @@ export function LoginForm() {
           required: t("passwordRequired"),
         })}
       />
-      <Button type="submit" label={t("login")} />
+      <Button type="submit" label={t("login")} className="w-full" />
     </form>
   );
 }

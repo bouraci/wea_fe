@@ -42,7 +42,7 @@ export function UserChip() {
       </div>
 
       <Button
-        className="aspect-square rounded-full"
+        className="aspect-square w-max p-3 rounded-full"
         icon={<FontAwesomeIcon icon={faArrowRightFromBracket} size="xl" />}
         onClick={handleLogout}
         variant="bad"

@@ -8,6 +8,8 @@ export type BookListItemType = {
   publicationYear: number;
   rating: number;
   totalRatings: number;
+  isHidden: boolean;
+  isFavorite: boolean;
 };
 
 export type BookListType = {

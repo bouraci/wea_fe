@@ -13,6 +13,8 @@ export type BookType = {
   pageCount: number;
   totalRatings: number;
   comments: BookCommentType[];
+  isHidden: boolean;
+  isFavorite?: boolean;
 };
 
 export type BookCommentType = {

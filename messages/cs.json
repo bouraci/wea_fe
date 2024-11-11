@@ -22,7 +22,14 @@
     "pageCount": "Počet stran",
     "noComments": "Zatím žádné komentáře",
     "comments": "Komentáře",
-    "bookList": "Seznam knih"
+    "bookList": "Seznam knih",
+    "allBooks": "Všechny knihy",
+    "favouriteBooks": "Oblíbené knihy",
+    "addToFavourites": "Přidat do oblíbených",
+    "bookAddedToFavourites": "Kniha byla přidána do oblíbených",
+    "bookFavoriteFailed": "Přidání knihy do oblíbených selhalo",
+    "currentlyUnavailable": "Momentálně nedostupné",
+    "youAlreadyRated": "Již jste hodnotili tuto knihu"
   },
   "login": {
     "notLoggedIn": "Nejste přihlášeni",

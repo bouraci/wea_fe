@@ -1,13 +1,18 @@
 import clsx from "clsx";
+import "./style.css";
 
-export function Chip({
-  content,
-  className,
-}: Readonly<{ content: string; className?: string }>) {
+type Props = {
+  content: string;
+  className?: string;
+  variant?: "default" | "good" | "bad" | "warning" | "gray";
+  size?: "sm" | "md" | "lg";
+};
+
+export function Chip({ content, className, variant, size }: Props) {
   return (
     <span
       className={clsx(
-        "text-sm border-blue-500/50 border text-white w-max py-1 px-2 rounded-full bg-blue-500/40",
+        `chip chip--${variant ?? "default"} chip--${size ?? "sm"}`,
         className,
       )}
     >

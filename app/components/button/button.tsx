@@ -15,7 +15,7 @@ export function Button({ label, variant, icon, className, ...props }: Props) {
   return (
     <button
       className={clsx(
-        "text-white flex items-center justify-center p-2",
+        "text-white flex items-center justify-center p-2 h-max w-full",
         `button--${props.disabled ? "disabled" : (variant ?? "default")}`,
         className,
       )}
