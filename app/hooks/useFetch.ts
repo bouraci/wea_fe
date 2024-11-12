@@ -1,5 +1,5 @@
-import useSWR from "swr";
 import toast from "react-hot-toast";
+import useSWR from "swr";
 
 export function useFetch<T>(key: string, fetcher: () => Promise<T>) {
   const { data, error, isLoading } = useSWR<T>(key, fetcher, {

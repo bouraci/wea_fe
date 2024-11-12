@@ -26,10 +26,6 @@ export default function Home() {
   const swrKey = `${title},${author},${genre},${publicationYear},${minRating},${maxRating},${page}`;
   const { data: bookData, isLoading } = useFetch<BookListType>(swrKey, fetcher);
 
-  useEffect(() => {
-    mutate(swrKey);
-  }, [showFavorites, swrKey]);
-
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
@@ -38,6 +34,10 @@ export default function Home() {
     setShowFavorites(!showFavorites);
     clearFilters();
   };
+
+  useEffect(() => {
+    mutate(swrKey);
+  }, [showFavorites, swrKey]);
 
   if (isLoading) {
     return <Spinner />;

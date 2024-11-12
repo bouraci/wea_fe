@@ -1,11 +1,13 @@
-import { RatingInput } from "@components/rating";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useUser } from "@contexts/UserContext";
+"use client";
+
 import { postBookComment } from "@api/apiComments";
-import { mutate } from "swr";
-import toast from "react-hot-toast";
-import { useTranslations } from "next-intl";
 import { Button } from "@components/button";
+import { RatingInput } from "@components/rating";
+import { useUser } from "@contexts/UserContext";
+import { useTranslations } from "next-intl";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { mutate } from "swr";
 
 type Inputs = {
   comment: string;
