@@ -1,7 +1,7 @@
 "use client";
 
 import { BookListType } from "@/app/types/BookListType";
-import { getBooksList, getFavoriteBooksList } from "@api/bookFetchers";
+import { getBooksList, getFavoriteBooksList } from "@api/apiBooks";
 import { BookList } from "@components/book";
 import { Button } from "@components/button";
 import { Pagination } from "@components/pagination";
@@ -19,9 +19,9 @@ export default function Home() {
   const { title, author, genre, publicationYear, minRating, maxRating } =
     appliedFilters;
   const [showFavorites, setShowFavorites] = useState(false);
-  const { user, token } = useUser();
+  const { user } = useUser();
   const fetcher = showFavorites
-    ? () => getFavoriteBooksList(page, 10, appliedFilters, token)
+    ? () => getFavoriteBooksList(page, 10, appliedFilters)
     : () => getBooksList(page, 10, appliedFilters);
   const swrKey = `${title},${author},${genre},${publicationYear},${minRating},${maxRating},${page}`;
   const { data: bookData, isLoading } = useFetch<BookListType>(swrKey, fetcher);

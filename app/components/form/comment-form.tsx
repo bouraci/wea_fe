@@ -1,7 +1,7 @@
 import { RatingInput } from "@components/rating";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useUser } from "@contexts/UserContext";
-import { postBookComment } from "@api/commentFetchers";
+import { postBookComment } from "@api/apiComments";
 import { mutate } from "swr";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";

@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { useFilter } from "@contexts/FilterContext";
 import { ChangeEvent } from "react";
 import { useFetch } from "@hooks/useFetch";
-import { getAllGenres } from "@api/genreFetchers";
+import { getAllBookGenres } from "@api/apiBooks";
 import { usePathname } from "next/navigation";
 import { LabeledInput, LabeledSelect } from "@components/input";
 import { Button } from "@components/button";
@@ -18,7 +18,7 @@ export function BookFilter() {
     setTempFilters({ [name]: value });
   };
   const { data } = useFetch<string[]>(`/api/books/genres`, () =>
-    getAllGenres(),
+    getAllBookGenres(),
   );
   const isRoot = usePathname() === "/";
 

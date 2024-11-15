@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { login } from "@api/auth";
+import { login } from "@api/apiAuth";
 import { useUser } from "@contexts/UserContext";
 import { useTranslations } from "next-intl";
 import { FormInput } from "@components/input";

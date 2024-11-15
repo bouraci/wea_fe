@@ -1,18 +1,16 @@
 "use client";
 
 import { BookType } from "@/app/types/BookType";
-import { getBookDetail } from "@api/bookFetchers";
+import { getBookDetail } from "@api/apiBooks";
 import { BookDetail } from "@components/book";
 import { Spinner } from "@components/spinner";
-import { useUser } from "@contexts/UserContext";
 import { useFetch } from "@hooks/useFetch";
 
 export default function Book({ params }: { params: { id: number } }) {
   const { id } = params;
-  const { token } = useUser();
   const { data: bookData, isLoading } = useFetch<BookType>(
     `getBooksDetail`,
-    () => getBookDetail(id, token),
+    () => getBookDetail(id),
   );
 
   if (isLoading) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@components/card";
-import { loadData } from "@api/dataFetchers";
+import { loadData } from "@api/apiData";
 import toast from "react-hot-toast";
 import { Button } from "@components/button";
 

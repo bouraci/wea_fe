@@ -1,5 +1,5 @@
 import { BookType } from "@/app/types/BookType";
-import { addBookToFavorites } from "@api/bookFetchers";
+import { addBookToFavorites } from "@api/apiBooks";
 import { Button } from "@components/button";
 import { Card } from "@components/card";
 import { Chip } from "@components/chip";
@@ -18,12 +18,12 @@ import { mutate } from "swr";
 
 export function BookDetail({ book }: { book: BookType }) {
   const t = useTranslations("common");
-  const { user, token } = useUser();
+  const { user } = useUser();
 
   const handleAddToFavorites = async () => {
-    const response = await addBookToFavorites(book.id, token);
+    const response = await addBookToFavorites(book.id);
     if (response) {
-      toast.success(t("bookAddedToFavorites"));
+      toast.success(t("bookAddedToFavourites"));
       await mutate("getBooksDetail");
     } else {
       toast.error(t("bookFavoriteFailed"));

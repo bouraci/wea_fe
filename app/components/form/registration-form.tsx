@@ -3,7 +3,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { register as userRegister } from "@api/auth";
+import { register as userRegister } from "@api/apiAuth";
 import toast from "react-hot-toast";
 import { useUser } from "@contexts/UserContext";
 import { useTranslations } from "next-intl";
