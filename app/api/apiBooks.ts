@@ -85,9 +85,14 @@ export async function getBookDetail(id: number) {
 export async function addBookToFavorites(id: number) {
   const response = await authFetch(`/api/books/favourites/${id}`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+  });
+
+  return response.ok;
+}
+
+export async function deleteBookFromFavorites(id: number) {
+  const response = await authFetch(`/api/books/favourites/${id}`, {
+    method: "DELETE",
   });
 
   return response.ok;

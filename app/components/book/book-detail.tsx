@@ -1,5 +1,5 @@
 import { BookType } from "@/app/types/BookType";
-import { addBookToFavorites } from "@api/apiBooks";
+import { addBookToFavorites, deleteBookFromFavorites } from "@api/apiBooks";
 import { Button } from "@components/button";
 import { Card } from "@components/card";
 import { Chip } from "@components/chip";
@@ -7,7 +7,11 @@ import { LabeledInput } from "@components/input";
 import { useUser } from "@contexts/UserContext";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faBookmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faBookmark as faBookmarkSolid,
+} from "@fortawesome/free-solid-svg-icons";
+import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import { PLACEHOLDER_BOOK_COVER_URL } from "@/app/constants";
 import { CommentList } from "@components/comment";
@@ -27,6 +31,16 @@ export function BookDetail({ book }: { book: BookType }) {
       await mutate("getBooksDetail");
     } else {
       toast.error(t("bookFavoriteFailed"));
+    }
+  };
+
+  const handleDeleteFromFavorites = async () => {
+    const response = await deleteBookFromFavorites(book.id);
+    if (response) {
+      toast.success(t("bookDeletedFromFavourites"));
+      await mutate("getBooksDetail");
+    } else {
+      toast.error(t("bookFavouriteDeleteFailed"));
     }
   };
 
@@ -51,12 +65,20 @@ export function BookDetail({ book }: { book: BookType }) {
         </Link>
         {user && (
           <Button
-            icon={<FontAwesomeIcon icon={faBookmark} size="lg" />}
-            variant="warning"
-            label={t("addToFavourites")}
-            onClick={() => handleAddToFavorites()}
+            icon={
+              <FontAwesomeIcon
+                icon={book.isFavorite ? faBookmark : faBookmarkSolid}
+                size="lg"
+              />
+            }
+            variant={book.isFavorite ? "bad" : "warning"}
+            label={
+              book.isFavorite ? t("deleteFromFavourites") : t("addToFavourites")
+            }
+            onClick={
+              book.isFavorite ? handleDeleteFromFavorites : handleAddToFavorites
+            }
             className="w-max"
-            disabled={book.isFavorite}
           />
         )}
       </div>

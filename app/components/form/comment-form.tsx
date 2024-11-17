@@ -14,7 +14,13 @@ type Inputs = {
   rating: number;
 };
 
-export function CommentForm({ bookId }: { bookId: number }) {
+export function CommentForm({
+  bookId,
+  userHasRated,
+}: {
+  bookId: number;
+  userHasRated: boolean;
+}) {
   const { user } = useUser();
   const {
     register,
@@ -27,7 +33,11 @@ export function CommentForm({ bookId }: { bookId: number }) {
   const t = useTranslations("comment");
 
   if (!user) {
-    return <p className="text-center font-bold">{t("loginToComment")}</p>;
+    return (
+      <p className="text-center font-bold text-lg py-2">
+        {t("loginToComment")}
+      </p>
+    );
   }
 
   const comment = watch("comment", "");
@@ -54,13 +64,23 @@ export function CommentForm({ bookId }: { bookId: number }) {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="rating"
-        control={control}
-        render={({ field }) => (
-          <RatingInput value={field.value} onChange={field.onChange} />
-        )}
-      />
+      {!userHasRated ? (
+        <div className="flex gap-4 items-center">
+          <Controller
+            name="rating"
+            control={control}
+            render={({ field }) => (
+              <RatingInput value={field.value} onChange={field.onChange} />
+            )}
+          />
+          {rating > 0 ? <b>{rating} / 5</b> : <p>{t("noRatingProvided")}</p>}
+        </div>
+      ) : (
+        <p className="text-center font-bold text-lg py-2">
+          {t("youAlreadyRated")}
+        </p>
+      )}
+
       <textarea
         className="h-24"
         placeholder="Yap about the book here..."

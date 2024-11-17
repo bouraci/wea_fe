@@ -8,6 +8,8 @@ import { Pagination } from "@components/pagination";
 import { Spinner } from "@components/spinner";
 import { useFilter } from "@contexts/FilterContext";
 import { useUser } from "@contexts/UserContext";
+import { faBook, faBookBookmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFetch } from "@hooks/useFetch";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -52,6 +54,12 @@ export default function Home() {
             onClick={toggleFavorites}
             variant={showFavorites ? "good" : "warning"}
             className="w-max"
+            icon={
+              <FontAwesomeIcon
+                icon={showFavorites ? faBook : faBookBookmark}
+                size="lg"
+              />
+            }
           />
         )}
         <BookList

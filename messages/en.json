@@ -26,10 +26,12 @@
     "allBooks": "All Books",
     "favouriteBooks": "Favourite Books",
     "addToFavourites": "Add to Favourites",
+    "deleteFromFavourites": "Delete from favourites",
     "bookAddedToFavourites": "Book added to favourites",
     "bookFavoriteFailed": "Adding book to favourites failed",
-    "currentlyUnavailable": "Currently unavailable",
-    "youAlreadyRated": "You already rated this book"
+    "bookDeletedFromFavourites": "Book has been removed from favourites",
+    "bookFavouriteDeleteFailed": "Removing book from favorites failed",
+    "currentlyUnavailable": "Currently unavailable"
   },
   "login": {
     "notLoggedIn": "You are not logged in",
@@ -60,6 +62,8 @@
     "commentAddedSuccess": "Comment added successfully",
     "commentAddedFailed": "Adding comment failed",
     "addComment": "Add comment",
-    "warnEmptyComment": "Comment body cannot be empty"
+    "warnEmptyComment": "Comment body cannot be empty",
+    "youAlreadyRated": "You already rated this book",
+    "noRatingProvided": "No rating provided and will not be submitted"
   }
 }
