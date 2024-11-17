@@ -38,6 +38,7 @@ export function RatingInput({
     <div className="flex gap-1">
       {Array.from({ length: 5 }).map((_, index) => (
         <FontAwesomeIcon
+          size="lg"
           key={index}
           icon={getStarIcon(index)}
           className="text-yellow-500 cursor-pointer"

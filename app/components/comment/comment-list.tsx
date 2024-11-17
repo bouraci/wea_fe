@@ -16,27 +16,28 @@ export function CommentList({
   const { user } = useUser();
 
   const userHasRated = comments.some(
-    (comment) => comment.creatorUserName === user?.username,
+    (comment) =>
+      comment.creatorUserName === user?.username && comment.rating > 0,
   );
 
   return (
     <Card heading={`${t("comments")} (${comments.length})`}>
       <div className="flex flex-col gap-2">
-        {userHasRated ? (
-          <p className="text-center font-bold text-lg py-2">
-            {t("youAlreadyRated")}
-          </p>
-        ) : (
-          <CommentForm bookId={bookId} />
-        )}
+        <CommentForm bookId={bookId} userHasRated={userHasRated} />
 
         <hr className="border-zinc-600" />
 
         {comments.length === 0 ? (
-          <p className="text-center font-bold">{t("noComments")}</p>
+          <p className="text-center font-bold text-lg py-2">
+            {t("noComments")}
+          </p>
         ) : (
           comments.map((comment, index) => (
-            <Comment comment={comment} key={index} />
+            <Comment
+              comment={comment}
+              key={index}
+              highlight={user?.username === comment.creatorUserName}
+            />
           ))
         )}
       </div>

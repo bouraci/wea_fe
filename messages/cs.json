@@ -26,10 +26,12 @@
     "allBooks": "Všechny knihy",
     "favouriteBooks": "Oblíbené knihy",
     "addToFavourites": "Přidat do oblíbených",
+    "deleteFromFavourites": "Odebrat z oblíbených",
     "bookAddedToFavourites": "Kniha byla přidána do oblíbených",
     "bookFavoriteFailed": "Přidání knihy do oblíbených selhalo",
-    "currentlyUnavailable": "Momentálně nedostupné",
-    "youAlreadyRated": "Již jste hodnotili tuto knihu"
+    "bookDeletedFromFavourites": "Kniha byla odebrána z oblíbených",
+    "bookFavouriteDeleteFailed": "Odebírání knihy z oblíbených selhalo",
+    "currentlyUnavailable": "Momentálně nedostupné"
   },
   "login": {
     "notLoggedIn": "Nejste přihlášeni",
@@ -60,6 +62,8 @@
     "commentAddedSuccess": "Komentář byl úspěšně přidán",
     "commentAddedFailed": "Přidání komentáře selhalo",
     "addComment": "Přidat komentář",
-    "warnEmptyComment": "Tělo komentáře nemůže být prázdné"
+    "warnEmptyComment": "Tělo komentáře nemůže být prázdné",
+    "youAlreadyRated": "Již jste hodnotili tuto knihu",
+    "noRatingProvided": "Žádné hodnocení, nebude vloženo ke komentáři"
   }
 }
