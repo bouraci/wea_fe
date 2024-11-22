@@ -1,9 +1,13 @@
-import { forwardRef, InputHTMLAttributes, ReactElement } from "react";
+import {
+  LabeledInput,
+  LabeledInputProps,
+} from "@components/input/labeled-input";
+import { forwardRef, ReactElement } from "react";
 
 type Props = {
   icon?: ReactElement;
   error?: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+} & LabeledInputProps;
 
 export const FormInput = forwardRef<HTMLInputElement, Props>(
   ({ icon, error, ...props }, ref) => {
@@ -11,7 +15,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
           {icon}
-          <input ref={ref} className="w-full" {...props} />
+          <LabeledInput ref={ref} className="w-full" {...props} />
         </div>
         {error && <small className="text-red-500">{error}</small>}
       </div>

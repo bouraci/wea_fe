@@ -31,7 +31,13 @@
     "bookFavoriteFailed": "Adding book to favourites failed",
     "bookDeletedFromFavourites": "Book has been removed from favourites",
     "bookFavouriteDeleteFailed": "Removing book from favorites failed",
-    "currentlyUnavailable": "Currently unavailable"
+    "currentlyUnavailable": "Currently unavailable",
+    "minPrice": "Minimum price",
+    "maxPrice": "Maximum price",
+    "save": "Save",
+    "addToCart": "Add to cart",
+    "addedToCartSuccess": "Book added to cart",
+    "addedToCartFailed": "Adding book to card failed"
   },
   "login": {
     "notLoggedIn": "You are not logged in",

@@ -75,33 +75,62 @@ export function BookFilter() {
           disabled={!isRoot}
         />
 
-        <LabeledInput
-          label={t("minRating")}
-          id="minRating"
-          type="number"
-          step="0.1"
-          min="0"
-          max="5"
-          name="minRating"
-          value={tempFilters.minRating ?? ""}
-          placeholder="0 - 5"
-          onChange={handleFilterChange}
-          disabled={!isRoot}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <LabeledInput
+            label={t("minRating")}
+            id="minRating"
+            type="number"
+            step="0.1"
+            min="0"
+            max="5"
+            name="minRating"
+            value={tempFilters.minRating ?? ""}
+            placeholder="0 - 5"
+            onChange={handleFilterChange}
+            disabled={!isRoot}
+          />
 
-        <LabeledInput
-          label={t("maxRating")}
-          id="maxRating"
-          type="number"
-          step="0.1"
-          min="0"
-          max="5"
-          name="maxRating"
-          value={tempFilters.maxRating ?? ""}
-          placeholder="0 - 5"
-          onChange={handleFilterChange}
-          disabled={!isRoot}
-        />
+          <LabeledInput
+            label={t("maxRating")}
+            id="maxRating"
+            type="number"
+            step="0.1"
+            min="0"
+            max="5"
+            name="maxRating"
+            value={tempFilters.maxRating ?? ""}
+            placeholder="0 - 5"
+            onChange={handleFilterChange}
+            disabled={!isRoot}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <LabeledInput
+            label={t("minPrice")}
+            id="minPrice"
+            type="number"
+            step="100"
+            min="0"
+            name="minPrice"
+            value={tempFilters.minPrice ?? ""}
+            placeholder="0"
+            onChange={handleFilterChange}
+            disabled={!isRoot}
+          />
+
+          <LabeledInput
+            label={t("maxPrice")}
+            id="maxPrice"
+            type="number"
+            step="100"
+            min="0"
+            name="maxPrice"
+            value={tempFilters.maxPrice ?? ""}
+            onChange={handleFilterChange}
+            disabled={!isRoot}
+          />
+        </div>
       </div>
       <div className="mt-4 flex gap-4 justify-between">
         <Button

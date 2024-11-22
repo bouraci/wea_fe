@@ -1,10 +1,12 @@
+import { tokenManager } from "@utils/tokenManager";
+
 export const login = async (username: string, password: string) => {
   const response = await fetch(`/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      UserName: username,
-      Password: password,
+      userName: username,
+      password: password,
     }),
   });
 
@@ -12,7 +14,10 @@ export const login = async (username: string, password: string) => {
     return null;
   }
 
-  return await response.text();
+  const token = await response.text();
+  tokenManager.setToken(token);
+
+  return token;
 };
 
 export const register = async (
@@ -24,9 +29,11 @@ export const register = async (
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      UserName: username,
-      Password: password,
-      Name: name,
+      userName: username,
+      password: password,
+      name: name,
+      // this needs to go away
+      favouriteGerners: [],
     }),
   });
 

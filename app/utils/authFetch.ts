@@ -1,13 +1,15 @@
-import { checkTokenIsValid } from "@utils/tokenUtils";
+import { tokenManager } from "@utils/tokenManager";
 
 export const authFetch = async (url: string, options: RequestInit = {}) => {
-  const tokenValidity = checkTokenIsValid();
-  if (!tokenValidity.isValid) {
-    window.location.reload();
+  if (!tokenManager.isTokenValid()) {
+    tokenManager.invalidateToken();
+    return Promise.reject("Token is invalid or expired");
   }
 
+  const token = tokenManager.getToken();
+  console.log(token);
   const authHeaders = {
-    Authorization: `Bearer ${tokenValidity.token}`,
+    Authorization: `Bearer ${token}`,
     ...options.headers,
   };
 

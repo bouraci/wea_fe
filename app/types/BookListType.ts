@@ -10,6 +10,7 @@ export type BookListItemType = {
   totalRatings: number;
   isHidden: boolean;
   isFavorite: boolean;
+  price: number;
 };
 
 export type BookListType = {

@@ -10,6 +10,7 @@ import { FilterProvider } from "@contexts/FilterContext";
 import { UserProvider } from "@contexts/UserContext";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { CartProvider } from "@contexts/CartContext";
 
 config.autoAddCss = false;
 
@@ -36,11 +37,13 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <UserProvider>
             <FilterProvider>
-              <Toaster position="top-right" />
-              <Sidebar />
-              <main className="flex flex-col flex-1 p-4 overflow-auto h-full">
-                {children}
-              </main>
+              <CartProvider>
+                <Toaster position="top-right" />
+                <Sidebar />
+                <main className="flex flex-col flex-1 p-4 overflow-auto h-full">
+                  {children}
+                </main>
+              </CartProvider>
             </FilterProvider>
           </UserProvider>
         </NextIntlClientProvider>

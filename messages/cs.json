@@ -31,7 +31,13 @@
     "bookFavoriteFailed": "Přidání knihy do oblíbených selhalo",
     "bookDeletedFromFavourites": "Kniha byla odebrána z oblíbených",
     "bookFavouriteDeleteFailed": "Odebírání knihy z oblíbených selhalo",
-    "currentlyUnavailable": "Momentálně nedostupné"
+    "currentlyUnavailable": "Momentálně nedostupné",
+    "minPrice": "Minimální cena",
+    "maxPrice": "Maximální cena",
+    "save": "Uložit",
+    "addToCart": "Přidat do košíku",
+    "addedToCartSuccess": "Kniha byla přidána do košíku",
+    "addedToCartFailed": "Knihu nešlo přidat do košíku"
   },
   "login": {
     "notLoggedIn": "Nejste přihlášeni",

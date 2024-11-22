@@ -1,7 +1,7 @@
 import { BookListType } from "@/app/types/BookListType";
 import { BookType } from "@/app/types/BookType";
 import { authFetch } from "@utils/authFetch";
-import { checkTokenIsValid } from "@utils/tokenUtils";
+import { tokenManager } from "@utils/tokenManager";
 
 export async function getBooksList(
   page: number = 1,
@@ -13,6 +13,8 @@ export async function getBooksList(
     publicationYear?: string;
     minRating?: string;
     maxRating?: string;
+    minPrice?: string;
+    maxPrice?: string;
   } = {},
 ) {
   const queryParams = new URLSearchParams({
@@ -38,6 +40,8 @@ export async function getFavoriteBooksList(
     publicationYear?: string;
     minRating?: string;
     maxRating?: string;
+    minPrice?: string;
+    maxPrice?: string;
   } = {},
 ) {
   const queryParams = new URLSearchParams({
@@ -57,14 +61,14 @@ export async function getFavoriteBooksList(
 }
 
 export async function getBookDetail(id: number) {
-  const tokenValidity = checkTokenIsValid();
   const response = await fetch(`/api/books/${id}`, {
     method: "GET",
   });
 
   const bookDetail = (await response.json()) as BookType;
+  bookDetail.isFavorite = false;
 
-  if (!tokenValidity.isValid) {
+  if (!tokenManager.isTokenValid()) {
     return bookDetail;
   }
 
