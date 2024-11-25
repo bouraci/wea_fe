@@ -1,60 +1,71 @@
 "use client";
 
+import { UserType } from "@/app/types/UserType";
+import { tokenManager } from "@utils/tokenManager";
 import { jwtDecode } from "jwt-decode";
 import {
   createContext,
-  useContext,
-  useState,
-  useEffect,
   ReactNode,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
-import { UserType } from "@/app/types/UserType";
 
 type UserContextType = {
   user: UserType | undefined;
-  token: string | null;
   setUserFromToken: (token: string | null) => void;
-  logout: () => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [user, setUserState] = useState<UserType | undefined>(undefined);
-  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<UserType | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setUserFromToken(storedToken);
-    }
+    const initializeUser = () => {
+      const storedToken = tokenManager.getToken();
+
+      if (storedToken) {
+        tokenManager.setToken(storedToken);
+        const isValid = tokenManager.isTokenValid();
+
+        if (isValid) {
+          const decodedUser = jwtDecode<UserType>(storedToken);
+          setUser(decodedUser);
+        } else {
+          tokenManager.invalidateToken();
+        }
+      }
+
+      setIsLoading(false);
+    };
+
+    initializeUser();
+
+    tokenManager.onTokenInvalid(() => {
+      setUser(undefined);
+      window.location.href = "/auth/signin";
+    });
   }, []);
 
   const setUserFromToken = (token: string | null) => {
-    if (token) {
-      const decodedToken = jwtDecode<{ exp: number } & UserType>(token);
-      const isExpired = decodedToken.exp * 1000 < Date.now();
+    tokenManager.setToken(token);
 
-      if (isExpired) {
-        logout();
-      } else {
-        setUserState(decodedToken);
-        setToken(token);
-        localStorage.setItem("token", token);
-      }
+    if (token && tokenManager.isTokenValid()) {
+      const decodedUser = jwtDecode<UserType>(token);
+      setUser(decodedUser);
     } else {
-      setUserState(undefined);
-      setToken(null);
-      localStorage.removeItem("token");
+      setUser(undefined);
     }
   };
 
-  const logout = () => {
-    setUserFromToken(null);
-  };
+  if (isLoading) {
+    return null;
+  }
 
   return (
-    <UserContext.Provider value={{ user, token, setUserFromToken, logout }}>
+    <UserContext.Provider value={{ user, setUserFromToken }}>
       {children}
     </UserContext.Provider>
   );
@@ -65,5 +76,6 @@ export function useUser() {
   if (!context) {
     throw new Error("useUser must be used within a UserProvider");
   }
+
   return context;
 }

@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import clsx from "clsx";
 
 interface Props {
   children: ReactNode;
@@ -15,10 +14,13 @@ export function Card({
   subheading,
 }: Props): ReactNode {
   return (
-    <div className="bg-zinc-700 p-4 rounded-xl flex flex-col">
-      {heading && <h3>{heading}</h3>}
-      {subheading && <small>{subheading}</small>}
-      <div className={clsx("mt-4", className)}>{children}</div>
+    <div className="bg-zinc-700 p-4 rounded-lg flex flex-col gap-4">
+      <div>
+        {heading && <h3>{heading}</h3>}
+        {subheading && <small>{subheading}</small>}
+      </div>
+
+      <div className={className}>{children}</div>
     </div>
   );
 }

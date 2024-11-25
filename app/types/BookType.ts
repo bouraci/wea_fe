@@ -14,7 +14,8 @@ export type BookType = {
   totalRatings: number;
   comments: BookCommentType[];
   isHidden: boolean;
-  isFavorite?: boolean;
+  isFavorite: boolean;
+  price?: number;
 };
 
 export type BookCommentType = {

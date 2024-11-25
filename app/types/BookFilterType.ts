@@ -5,4 +5,6 @@ export type BookFilterType = {
   publicationYear?: string;
   minRating?: string;
   maxRating?: string;
+  minPrice?: string;
+  maxPrice?: string;
 };

@@ -31,6 +31,8 @@ export function FilterProvider({ children }: { children: ReactNode }) {
     publicationYear: "",
     minRating: "",
     maxRating: "",
+    minPrice: "",
+    maxPrice: "",
   };
 
   const [tempFilters, setTempFiltersState] =

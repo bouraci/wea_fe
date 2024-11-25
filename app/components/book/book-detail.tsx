@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faBookmark as faBookmarkSolid,
+  faCartPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
@@ -19,10 +20,12 @@ import { useTranslations } from "next-intl";
 import { Rating } from "@components/rating";
 import toast from "react-hot-toast";
 import { mutate } from "swr";
+import { useCart } from "@contexts/CartContext";
 
 export function BookDetail({ book }: { book: BookType }) {
   const t = useTranslations("common");
   const { user } = useUser();
+  const { addToCart } = useCart();
 
   const handleAddToFavorites = async () => {
     const response = await addBookToFavorites(book.id);
@@ -44,8 +47,13 @@ export function BookDetail({ book }: { book: BookType }) {
     }
   };
 
+  const handleAddToCart = async () => {
+    toast.success(t("addedToCartSuccess"));
+    addToCart({ book: book, quantity: 1 });
+  };
+
   return (
-    <div className="p-2 flex flex-col gap-2">
+    <div className="space-y-4">
       <span className="mb-4">
         <div className="flex gap-4 items-center">
           <h1 className="text-4xl font-bold">{book.title}</h1>
@@ -59,7 +67,7 @@ export function BookDetail({ book }: { book: BookType }) {
         </span>
       </span>
       <div className="flex gap-2">
-        <Link href="/" className="button button--good mb-6">
+        <Link href="/" className="button button--good">
           <FontAwesomeIcon icon={faArrowLeft} className="mr-2" size="lg" />
           {t("backToList")}
         </Link>
@@ -83,7 +91,7 @@ export function BookDetail({ book }: { book: BookType }) {
         )}
       </div>
 
-      <Card className="space-y-2">
+      <Card>
         <div className="flex gap-2">
           <Image
             src={
@@ -101,25 +109,39 @@ export function BookDetail({ book }: { book: BookType }) {
           </div>
         </div>
 
-        <LabeledInput label={t("subtitle")} value={book.subtitle} readOnly />
-        <LabeledInput
-          label={t("authors")}
-          value={book.authors.split(";").join(", ")}
-          readOnly
-        />
-        <LabeledInput label="ISBN-10" value={book.isbN10} readOnly />
-        <LabeledInput label="ISBN-13" value={book.isbN13} readOnly />
-        <LabeledInput
-          label={t("publicationYear")}
-          value={book.publicationYear.toString()}
-          readOnly
-        />
-        <LabeledInput label={t("genre")} value={book.genre} readOnly />
-        <LabeledInput
-          label={t("pageCount")}
-          value={book.pageCount.toString()}
-          readOnly
-        />
+        {book.price && (
+          <div className="flex gap-2 items-center">
+            <p className="font-bold text-4xl my-4">{book.price},-</p>
+            <Button
+              icon={<FontAwesomeIcon icon={faCartPlus} size="lg" />}
+              label={t("addToCart")}
+              className="w-max"
+              onClick={handleAddToCart}
+            />
+          </div>
+        )}
+
+        <div className="space-y-2">
+          <LabeledInput label={t("subtitle")} value={book.subtitle} readOnly />
+          <LabeledInput
+            label={t("authors")}
+            value={book.authors.split(";").join(", ")}
+            readOnly
+          />
+          <LabeledInput label="ISBN-10" value={book.isbN10} readOnly />
+          <LabeledInput label="ISBN-13" value={book.isbN13} readOnly />
+          <LabeledInput
+            label={t("publicationYear")}
+            value={book.publicationYear.toString()}
+            readOnly
+          />
+          <LabeledInput label={t("genre")} value={book.genre} readOnly />
+          <LabeledInput
+            label={t("pageCount")}
+            value={book.pageCount.toString()}
+            readOnly
+          />
+        </div>
       </Card>
 
       {!book.isHidden && (

@@ -9,7 +9,7 @@ export function BookListItem({ book }: { book: BookListItemType }) {
   return (
     <Link
       href={`/books/${book.id}`}
-      className="hover:bg-white/10 transition-all duration-200 hover:cursor-pointer flex gap-3 justify-between p-4 border border-zinc-400 rounded-xl card-list-item"
+      className="hover:bg-white/10 transition-all duration-200 hover:cursor-pointer flex gap-3 justify-between p-4 border border-zinc-400 rounded-lg card-list-item"
     >
       <div className="flex gap-4">
         <Image
@@ -32,6 +32,7 @@ export function BookListItem({ book }: { book: BookListItemType }) {
             <Rating value={book.rating} />
             <p>({book.totalRatings})</p>
           </span>
+          {book.price && <b className="text-2xl pt-2">{book.price},-</b>}
         </div>
       </div>
     </Link>
