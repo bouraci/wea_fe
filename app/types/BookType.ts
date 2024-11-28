@@ -28,6 +28,5 @@ export type BookCommentType = {
 export type BookCommentRequestType = {
   content: string;
   bookId: number;
-  userName: string;
   rating: number;
 };

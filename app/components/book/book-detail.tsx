@@ -110,8 +110,8 @@ export function BookDetail({ book }: { book: BookType }) {
         </div>
 
         {book.price && (
-          <div className="flex gap-2 items-center">
-            <p className="font-bold text-4xl my-4">{book.price},-</p>
+          <div className="flex my-6 gap-2 items-center">
+            <p className="font-bold text-4xl py-4">{book.price},-</p>
             <Button
               icon={<FontAwesomeIcon icon={faCartPlus} size="lg" />}
               label={t("addToCart")}

@@ -1,6 +1,5 @@
 "use client";
 
-import { Card } from "@components/card";
 import { useFetch } from "@hooks/useFetch";
 import { getUserDetails } from "@api/apiUser";
 import { UserDetailDataType } from "@/app/types/UserType";
@@ -13,10 +12,21 @@ import { Button } from "@components/button";
 import { postMakeOrder } from "@api/apiOrders";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+import { PaymentMethodInput } from "@components/input";
+import { useTranslations } from "next-intl";
+
+type UserDetailsFormHandle = {
+  validateAndSubmit: () => Promise<boolean>;
+  handleSubmit: () => void;
+};
 
 export default function Checkout() {
+  const t = useTranslations("cart");
+  const [paymentMethod, setPaymentMethod] = useState(2);
+  const [additionalCost, setAdditionalCost] = useState(0);
   const { user } = useUser();
-  const { cart, clearCart } = useCart();
+  const { cart, clearCart, cartTotal } = useCart();
   const router = useRouter();
   const { data: userData, isLoading } = useFetch<UserDetailDataType>(
     "orderUserData",
@@ -24,15 +34,31 @@ export default function Checkout() {
   );
 
   async function handleOrder() {
-    const response = await postMakeOrder(cart);
+    const response = await postMakeOrder(cart, paymentMethod);
 
     if (response) {
-      toast.success("Order successful");
+      toast.success(t("orderSuccess"));
       clearCart();
       router.push("/");
     } else {
-      toast.error("Order failed");
+      toast.error(t("orderFailed"));
     }
+  }
+
+  const formRef = useRef<UserDetailsFormHandle>(null);
+  async function handleButtonClick() {
+    if (formRef.current) {
+      const isValid = await formRef.current.validateAndSubmit();
+      if (isValid) {
+        formRef.current.handleSubmit();
+        await handleOrder();
+      }
+    }
+  }
+
+  function handlePaymentChange(method: number, additional: number) {
+    setPaymentMethod(method);
+    setAdditionalCost(method === 3 ? cartTotal * additional : additional);
   }
 
   if (isLoading) {
@@ -40,45 +66,24 @@ export default function Checkout() {
   }
 
   if (userData && user) {
-    if (
-      userData.processData === null ||
-      userData.address === null ||
-      userData.billingAddress === null ||
-      userData.birthDay === null
-    ) {
-      return (
-        <UserDetailsForm
-          swrKey="orderUserData"
-          userData={{ user, ...userData }}
-        />
-      );
-    }
-
     return (
       <div className="space-y-4">
-        <Card className="space-y-2">
-          <div>
-            <h3>Delivery address</h3>
-            <p>{user.name}</p>
-            <p>{userData.address.streetAddress}</p>
-            <p>{userData.address.city}</p>
-            <p>{userData.address.zip}</p>
-            <p>{userData.address.country}</p>
-          </div>
-
-          <div>
-            <h3>Billing address</h3>
-            <p>{userData.billingAddress.streetAddress}</p>
-            <p>{userData.billingAddress.city}</p>
-            <p>{userData.billingAddress.zip}</p>
-            <p>{userData.billingAddress.country}</p>
-          </div>
-        </Card>
-        <ShoppingCartItems cart={cart} checkout={true} />
+        <UserDetailsForm
+          ref={formRef}
+          userData={{ user, ...userData }}
+          checkout={true}
+        />
+        <ShoppingCartItems
+          additionalCost={additionalCost}
+          cart={{ items: cart, total: cartTotal }}
+          checkout={true}
+        />
+        <PaymentMethodInput onPaymentChange={handlePaymentChange} />
         <Button
-          onClick={handleOrder}
+          type="button"
+          onClick={handleButtonClick}
           className="mx-auto max-w-sm"
-          label="Finish order"
+          label={t("finishOrder")}
         />
       </div>
     );

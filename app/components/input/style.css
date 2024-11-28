@@ -1,0 +1,3 @@
+.button--amount {
+    @apply border-none flex justify-center items-center rounded-full aspect-square bg-zinc-800
+}

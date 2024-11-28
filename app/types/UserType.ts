@@ -22,4 +22,5 @@ export type UserDetailDataType = {
   isMale: boolean | string;
   referral: string | null;
   favouriteGerners: string[];
+  email: string;
 };

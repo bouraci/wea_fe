@@ -20,6 +20,9 @@ export function CommentList({
       comment.creatorUserName === user?.username && comment.rating > 0,
   );
 
+  console.log(comments);
+  console.log(user?.username);
+
   return (
     <Card heading={`${t("comments")} (${comments.length})`}>
       <div className="flex flex-col gap-2">

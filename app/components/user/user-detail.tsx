@@ -8,17 +8,27 @@ import { FormInput } from "@components/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { mutate } from "swr";
+import { forwardRef, useImperativeHandle, useState } from "react";
+import { useTranslations } from "next-intl";
 
-export function UserDetailsForm({
-  userData,
-  swrKey,
-}: {
-  userData: UserDetailType;
-  swrKey?: string;
-}) {
+export const UserDetailsForm = forwardRef(function UserDetailsForm(
+  {
+    userData,
+    swrKey,
+    checkout = false,
+  }: {
+    userData: UserDetailType;
+    swrKey?: string;
+    checkout?: boolean;
+  },
+  ref,
+) {
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
+    trigger,
     formState: { errors },
   } = useForm<UserDetailType>({
     defaultValues: {
@@ -29,8 +39,16 @@ export function UserDetailsForm({
       processData: userData.processData,
       isMale: userData.isMale ?? true,
       referral: userData.referral,
+      email: userData.email,
     },
   });
+
+  const t = useTranslations("user");
+
+  const [sameAddress, setSameAddress] = useState(
+    JSON.stringify(userData.address) ===
+      JSON.stringify(userData.billingAddress),
+  );
 
   const onSubmit: SubmitHandler<UserDetailDataType> = async (data) => {
     try {
@@ -42,52 +60,82 @@ export function UserDetailsForm({
         processData: data.processData,
         isMale: data.isMale === "true",
         referral: data.referral,
+        email: data.email,
       });
-      toast.success("Update Success");
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      !checkout && toast.success(t("userDetailsUpdateSuccess"));
       mutate((swrKey ??= "userDetail"));
     } catch {
-      toast.error("Update Failed");
+      toast.error(t("userDetailsUpdateFailed"));
     }
   };
   const today = new Date().toISOString().split("T")[0];
 
+  useImperativeHandle(ref, () => ({
+    validateAndSubmit: () => trigger().then((isValid) => isValid),
+    handleSubmit: handleSubmit(onSubmit),
+  }));
+
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col gap-2" heading="Detaily Uživatele">
+    <form
+      id="shipping-details-form"
+      className="flex flex-col gap-4"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <Card className="flex flex-col gap-2" heading={t("userDetails")}>
+        <div className="grid grid-cols-2 gap-2">
+          <FormInput
+            type="text"
+            label={t("name")}
+            error={errors.user?.name?.message}
+            disabled
+            {...register("user.name", { required: t("nameRequired") })}
+          />
+          <FormInput
+            type="email"
+            label={t("email")}
+            error={errors.email?.message}
+            {...register("email", {
+              required: checkout ? t("emailRequired") : false,
+            })}
+          />
+        </div>
         <FormInput
           type="text"
-          label="Name"
-          error={errors.user?.name?.message}
-          disabled
-          {...register("user.name", { required: "nameRequired" })}
-        />
-        <FormInput
-          type="text"
-          label="Street"
+          label={t("street")}
           error={errors.address?.streetAddress?.message}
-          {...register("address.streetAddress", { required: "streetRequired" })}
+          {...register("address.streetAddress", {
+            required: checkout ? t("streetRequired") : false,
+          })}
         />
 
         <div className="grid grid-cols-2 gap-2">
           <FormInput
             type="text"
-            label="City"
+            label={t("city")}
             error={errors.address?.city?.message}
-            {...register("address.city", { required: "cityRequired" })}
+            {...register("address.city", {
+              required: checkout ? t("cityRequired") : false,
+            })}
           />
           <FormInput
-            type="text"
-            label="ZIP"
+            type="number"
+            label={t("zip")}
             error={errors.address?.zip?.message}
-            {...register("address.zip", { required: "zipRequired" })}
+            {...register("address.zip", {
+              required: checkout ? t("zipRequired") : false,
+            })}
           />
         </div>
 
         <FormInput
           type="text"
-          label="Country"
+          label={t("country")}
           error={errors.address?.country?.message}
-          {...register("address.country", { required: "countryRequired" })}
+          {...register("address.country", {
+            required: checkout ? t("countryRequired") : false,
+          })}
         />
 
         <div className="grid grid-cols-2 gap-2">
@@ -96,12 +144,11 @@ export function UserDetailsForm({
           <FormInput
             type="date"
             {...register("birthDay", {
-              required: "Datum narozeni is required.",
               validate: (value) =>
                 new Date(value) < new Date(today) || "Select a past date.",
             })}
             max={today}
-            label="Birth Day"
+            label={t("birthDay")}
           />
         </div>
 
@@ -109,7 +156,7 @@ export function UserDetailsForm({
           <input
             type="checkbox"
             {...register("processData", {
-              required: "You need to aggree to data processing",
+              required: t("processDataRequired"),
             })}
             id="processData"
             className="w-4 h-4"
@@ -119,56 +166,76 @@ export function UserDetailsForm({
               {errors.processData?.message}
             </small>
           )}
-          <label htmlFor="processData">Process data</label>
+          <label htmlFor="processData">{t("processData")}</label>
         </div>
         <div className="flex items-center gap-2">
-          <label>Gender</label>
+          <label>{t("gender")}</label>
           <select {...register("isMale")} className="border rounded-md p-2">
-            <option value="true">{"male"}</option>
-            <option value="false">{"female"}</option>
+            <option value="true">{t("male")}</option>
+            <option value="false">{t("female")}</option>
           </select>
         </div>
-      </Card>
 
-      <Card className="flex flex-col gap-2" heading="Fakturační adresa">
-        <FormInput
-          type="text"
-          label="Street"
-          error={errors.billingAddress?.streetAddress?.message}
-          {...register("billingAddress.streetAddress", {
-            required: "billingStreetRequired",
-          })}
-        />
-
-        <div className="grid grid-cols-2 gap-2">
-          <FormInput
-            type="text"
-            label="City"
-            error={errors.billingAddress?.city?.message}
-            {...register("billingAddress.city", {
-              required: "billingCityRequired",
-            })}
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={sameAddress}
+            onChange={(e) => {
+              setSameAddress(e.target.checked);
+              if (e.target.checked) {
+                setValue("billingAddress", getValues("address"));
+              }
+            }}
+            id="sameAddress"
+            className="w-4 h-4"
           />
-          <FormInput
-            type="text"
-            label="ZIP"
-            error={errors.billingAddress?.zip?.message}
-            {...register("billingAddress.zip", {
-              required: "billingZipRequired",
-            })}
-          />
+          <label htmlFor="sameAddress">{t("BillingAddressSame")}</label>
         </div>
-
-        <FormInput
-          type="text"
-          label="Country"
-          error={errors.billingAddress?.country?.message}
-          {...register("billingAddress.country", {
-            required: "billingCountryRequired",
-          })}
-        />
       </Card>
-      <Button type="submit" label="Save" className="w-max" />
+
+      {!sameAddress && (
+        <Card className="flex flex-col gap-2" heading={t("billingAddress")}>
+          <FormInput
+            type="text"
+            label={t("street")}
+            error={errors.billingAddress?.streetAddress?.message}
+            {...register("billingAddress.streetAddress", {
+              required: checkout ? t("streetRequired") : false,
+            })}
+          />
+
+          <div className="grid grid-cols-2 gap-2">
+            <FormInput
+              type="text"
+              label={t("city")}
+              error={errors.billingAddress?.city?.message}
+              {...register("billingAddress.city", {
+                required: checkout ? t("cityRequired") : false,
+              })}
+            />
+            <FormInput
+              type="number"
+              label={t("zip")}
+              error={errors.billingAddress?.zip?.message}
+              {...register("billingAddress.zip", {
+                required: checkout ? t("zipRequired") : false,
+              })}
+            />
+          </div>
+
+          <FormInput
+            type="text"
+            label={t("country")}
+            error={errors.billingAddress?.country?.message}
+            {...register("billingAddress.country", {
+              required: checkout ? t("countryRequired") : false,
+            })}
+          />
+        </Card>
+      )}
+      {!checkout && (
+        <Button type="submit" label={t("save")} className="w-max" />
+      )}
     </form>
   );
-}
+});
