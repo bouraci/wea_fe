@@ -47,7 +47,6 @@ export function CommentForm({
     try {
       const response = await postBookComment({
         content: comment,
-        userName: user.username,
         bookId: bookId,
         rating: rating,
       });

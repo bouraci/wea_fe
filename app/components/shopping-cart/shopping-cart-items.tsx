@@ -1,24 +1,26 @@
-import { CartItem } from "@contexts/CartContext";
 import { BookOrderListItem } from "@components/book";
 import Link from "next/link";
 import { Card } from "@components/card";
+import { CartType } from "@/app/types/CartType";
+import { useTranslations } from "next-intl";
 
 export function ShoppingCartItems({
   cart,
   checkout,
+  additionalCost = 0,
 }: {
-  cart: CartItem[];
+  cart: CartType;
   checkout?: boolean;
+  additionalCost?: number;
 }) {
+  const t = useTranslations("cart");
   return (
-    <Card heading="Shopping Cart">
-      {cart.length === 0 ? (
-        <p className="text-center font-bold text-lg py-2">
-          Your cart is empty.
-        </p>
+    <Card heading={t("cartContent")}>
+      {cart.items.length === 0 ? (
+        <p className="text-center font-bold text-lg py-2">{t("cartEmpty")}</p>
       ) : (
         <div className="space-y-4">
-          {cart.map((item) => (
+          {cart.items.map((item) => (
             <BookOrderListItem
               noButtons={checkout}
               key={item.book.id}
@@ -27,18 +29,22 @@ export function ShoppingCartItems({
           ))}
 
           <div className="flex items-center justify-between">
-            <p className="font-bold text-2xl">
-              {`Order total: 
-                ${cart.reduce(
-                  (total, item) =>
-                    total + item.quantity * (item.book.price ??= 499),
-                  0,
-                )},-`}
-            </p>
+            <div className="space-y-2">
+              {additionalCost > 0 && (
+                <>
+                  <p className="text-xl">{t("fees")}:</p>
+                  <p className="font-bold text-2xl">{additionalCost},-</p>
+                </>
+              )}
+              <p className="text-xl">{t("orderTotal")}:</p>
+              <p className="font-bold text-2xl">
+                {cart.total + additionalCost},-
+              </p>
+            </div>
 
             {!checkout && (
               <Link href="/cart/checkout" className="button button--default">
-                Order your books
+                {t("orderContinue")}
               </Link>
             )}
           </div>

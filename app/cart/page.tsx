@@ -9,26 +9,26 @@ import { Button } from "@components/button";
 import { ShoppingCartItems } from "@components/shopping-cart";
 
 export default function Cart() {
-  const { cart, clearCart } = useCart();
-  const t = useTranslations("common");
+  const { cart, clearCart, cartTotal } = useCart();
+  const t = useTranslations();
 
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
         <Link href="/" className="button button--good">
           <FontAwesomeIcon icon={faArrowLeft} className="mr-2" size="lg" />
-          {t("backToList")}
+          {t("common.backToList")}
         </Link>
         <Button
           className="w-max"
           variant="bad"
-          label="Empty shopping cart"
+          label={t("cart.emptyCart")}
           icon={<FontAwesomeIcon icon={faTrash} size="lg" />}
           onClick={clearCart}
           disabled={cart.length === 0}
         ></Button>
       </div>
-      <ShoppingCartItems cart={cart} />
+      <ShoppingCartItems cart={{ items: cart, total: cartTotal }} />
     </div>
   );
 }

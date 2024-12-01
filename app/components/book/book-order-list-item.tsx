@@ -4,16 +4,19 @@ import { PLACEHOLDER_BOOK_COVER_URL } from "@/app/constants";
 import { Rating } from "@components/rating";
 import { Chip } from "@components/chip";
 import { AmountInput } from "@components/input";
-import { CartItem, useCart } from "@contexts/CartContext";
+import { useCart } from "@contexts/CartContext";
+import { CartItemType } from "@/app/types/CartType";
+import { useTranslations } from "next-intl";
 
 export function BookOrderListItem({
   item,
   noButtons,
 }: {
-  item: CartItem;
+  item: CartItemType;
   noButtons?: boolean;
 }) {
   const { updateQuantity, removeFromCart } = useCart();
+  const t = useTranslations("cart");
 
   function handleCartDecrease() {
     if (item.quantity === 1) {
@@ -54,7 +57,7 @@ export function BookOrderListItem({
       <div className="space-y-2 mt-auto">
         {item.book.price && (
           <p className="text-xl font-bold text-right pt-2">
-            Price Total: {item.book.price * item.quantity},-
+            {item.book.price * item.quantity},-
           </p>
         )}
         {!noButtons ? (
@@ -64,7 +67,9 @@ export function BookOrderListItem({
             onDecrease={() => handleCartDecrease()}
           />
         ) : (
-          <p className="font-bold text-right text-xl">Qty: {item.quantity}x</p>
+          <p className="font-bold text-right text-xl">
+            {t("qty")}: {item.quantity}x
+          </p>
         )}
       </div>
     </div>

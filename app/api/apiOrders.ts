@@ -1,5 +1,5 @@
 import { authFetch } from "@utils/authFetch";
-import { CartItem } from "@contexts/CartContext";
+import { CartItemType } from "@/app/types/CartType";
 
 export async function getUserOrders() {
   const response = await authFetch("/api/order/orders", {
@@ -13,14 +13,20 @@ export async function getUserOrders() {
   return await response.json();
 }
 
-export async function postMakeOrder(order: CartItem[]) {
+export async function postMakeOrder(
+  order: CartItemType[],
+  paymentMethod: number,
+) {
   const response = await authFetch("/api/order/order", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      bookIds: order.map((bookOrder) => bookOrder.book.id),
+      bookIds: order.flatMap((bookOrder) =>
+        Array(bookOrder.quantity).fill(bookOrder.book.id),
+      ),
+      paymentMethod: paymentMethod,
     }),
   });
 

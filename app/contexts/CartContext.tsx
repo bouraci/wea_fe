@@ -5,18 +5,15 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
-import { BookType } from "@/app/types/BookType";
-
-export type CartItem = {
-  book: BookType;
-  quantity: number;
-};
+import { CartItemType } from "@/app/types/CartType";
 
 type CartContextType = {
-  cart: CartItem[];
-  addToCart: (item: CartItem) => void;
+  cart: CartItemType[];
+  cartTotal: number;
+  addToCart: (item: CartItemType) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;
@@ -25,7 +22,7 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<CartItem[]>(() => {
+  const [cart, setCart] = useState<CartItemType[]>(() => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
@@ -34,7 +31,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (item: CartItem) => {
+  const addToCart = (item: CartItemType) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find(
         (cartItem) => cartItem.book.id === item.book.id,
@@ -70,9 +67,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("cart");
   };
 
+  const cartTotal = useMemo(() => {
+    return cart.reduce(
+      (total, item) => total + (item.book.price ??= 0) * item.quantity,
+      0,
+    );
+  }, [cart]);
+
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}
+      value={{
+        cart,
+        cartTotal,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>

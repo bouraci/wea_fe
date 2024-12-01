@@ -71,5 +71,51 @@
     "warnEmptyComment": "Tělo komentáře nemůže být prázdné",
     "youAlreadyRated": "Již jste hodnotili tuto knihu",
     "noRatingProvided": "Žádné hodnocení, nebude vloženo ke komentáři"
+  },
+  "user": {
+    "userDetails": "Detail uživatele",
+    "email": "E-mail",
+    "name": "Jméno",
+    "zip": "PSČ",
+    "city": "Město",
+    "street": "Ulice",
+    "country": "Země",
+    "emailRequired": "E-mail je povinný údaj",
+    "nameRequired": "Jméno je povinný údaj",
+    "zipRequired": "PSČ je povinný údaj",
+    "cityRequired": "Město je povinný údaj",
+    "streetRequired": "Ulice je povinný údaj",
+    "countryRequired": "Země je povinný údaj",
+    "userDetailsUpdateSuccess": "Aktualizace údajů uživatele byla úspěšná",
+    "userDetailsUpdateFailed": "Aktualizace údajů uživatele selhala",
+    "processDataRequired": "Je potřeba udělit souhlas ke zpracování údajů",
+    "birthDay": "Datum narození",
+    "processData": "Zpracování dat",
+    "BillingAddressSame": "Fakturační adresa je stejná jako doručovací",
+    "billingAddress": "Fakturační adresa",
+    "save": "Uložit údaje",
+    "male": "Muž",
+    "female": "Žena",
+    "gender": "Pohlaví",
+    "userOrders": "Objednávky uživatele"
+  },
+  "cart": {
+    "cartEmpty": "Váš nákupní košík je prázdný, jdeme nakupovat!",
+    "orderContinue": "Pokračovat v objednávce",
+    "fees": "Poplatky",
+    "orderTotal": "Objednávka celkem",
+    "qty": "Množství",
+    "emptyCart": "Vyprázdnit košík",
+    "orderSuccess": "Objednávka byla úspěšně vytvořena",
+    "orderFailed": "Vytvoření objednávky selhalo",
+    "finishOrder": "Dokončit objednávku",
+    "cartContent": "Obsah košíku",
+    "shoppingCart": "Nákupní košík"
+  },
+  "payment": {
+    "paymentMethod": "Platební metoda",
+    "card": "Kartou (+1% z objednávky)",
+    "bank": "Bankovní převod (+0 CZK)",
+    "onDelivery": "Na dobírku (+50 CZK)"
   }
 }

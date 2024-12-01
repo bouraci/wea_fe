@@ -71,5 +71,51 @@
     "warnEmptyComment": "Comment body cannot be empty",
     "youAlreadyRated": "You already rated this book",
     "noRatingProvided": "No rating provided and will not be submitted"
+  },
+  "user": {
+    "userDetails": "User Details",
+    "email": "Email",
+    "name": "Name",
+    "zip": "ZIP Code",
+    "city": "City",
+    "street": "Street",
+    "country": "Country",
+    "emailRequired": "Email is required",
+    "nameRequired": "Name is required",
+    "zipRequired": "ZIP Code is required",
+    "cityRequired": "City is required",
+    "streetRequired": "Street is required",
+    "countryRequired": "Country is required",
+    "userDetailsUpdateSuccess": "User details updated successfully",
+    "userDetailsUpdateFailed": "User details update failed",
+    "processDataRequired": "Consent for data processing is required",
+    "birthDay": "Date of Birth",
+    "processData": "Data Processing",
+    "BillingAddressSame": "Billing address is the same as delivery address",
+    "billingAddress": "Billing Address",
+    "save": "Save Details",
+    "male": "Male",
+    "female": "Female",
+    "gender": "Gender",
+    "userOrders": "User Orders"
+  },
+  "cart": {
+    "cartEmpty": "Your shopping cart is empty, let's go shopping!",
+    "orderContinue": "Continue Order",
+    "fees": "Fees",
+    "orderTotal": "Order Total",
+    "qty": "Quantity",
+    "emptyCart": "Empty Cart",
+    "orderSuccess": "Order created successfully",
+    "orderFailed": "Order creation failed",
+    "finishOrder": "Finish Order",
+    "cartContent": "Cart Content",
+    "shoppingCart": "Shopping Cart"
+  },
+  "payment": {
+    "paymentMethod": "Payment Method",
+    "card": "Card (+1% of order)",
+    "bank": "Bank Transfer (+0 CZK)",
+    "onDelivery": "Cash on Delivery (+50 CZK)"
   }
 }
