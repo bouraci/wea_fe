@@ -33,6 +33,9 @@ export function Sidebar() {
         <LocaleSwitcher />
         <UserChip />
       </div>
+      {process.env.NODE_ENV === "production" && (
+        <small className="text-gray-400 mt-4">{`${process.env.NEXT_PUBLIC_FRONTEND_COMMIT_HASH}-${process.env.NEXT_PUBLIC_BACKEND_COMMIT_HASH}`}</small>
+      )}
     </div>
   );
 }

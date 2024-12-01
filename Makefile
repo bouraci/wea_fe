@@ -20,16 +20,26 @@ clone-be:
 		cd modules/wea_be && git pull origin master; \
 	fi
 
-build:
-	@echo "Building WEA_BE image..."
-	docker build -t hejsekvojtech/wea_be:latest modules/wea_be
-	@echo "Building WEA_FE image..."
-	docker build -t hejsekvojtech/wea_fe:latest .
+FRONTEND_COMMIT_HASH := $(shell git rev-parse --short HEAD)
+BACKEND_COMMIT_HASH := $(shell cd modules/wea_be && git rev-parse --short HEAD)
+
+generate-env:
+	echo "NEXT_PUBLIC_FRONTEND_COMMIT_HASH=$(FRONTEND_COMMIT_HASH)" > .env.local
+	echo "NEXT_PUBLIC_BACKEND_COMMIT_HASH=$(BACKEND_COMMIT_HASH)" >> .env.local
+
+build: generate-env
+	@echo "Building WEA_BE image with commit hash $(BACKEND_COMMIT_HASH)..."
+	docker build --build-arg BACKEND_COMMIT_HASH=$(BACKEND_COMMIT_HASH) -t hejsekvojtech/wea_be:latest modules/wea_be
+	@echo "Building WEA_FE image with commit hash $(FRONTEND_COMMIT_HASH)..."
+	docker build --build-arg FRONTEND_COMMIT_HASH=$(FRONTEND_COMMIT_HASH) -t hejsekvojtech/wea_fe:latest .
+
 
 run:
 	@echo "Running Docker Compose..."
 	make clone-be
+	make generate-env
 	docker compose up -d --build
+
 
 init:
 	@echo "Creating network..."
