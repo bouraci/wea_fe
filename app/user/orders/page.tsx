@@ -62,7 +62,7 @@ export default function UserOrdersPage() {
       <div className="space-y-4">
         {data.map((order) => (
           <div
-            className="grid grid-cols-[1fr_1fr_1fr_1fr_2fr_auto_1fr] gap-4 items-center p-4 border border-zinc-400 rounded-lg card-list-item"
+            className="grid grid-cols-[1fr_1fr_1fr_1fr_2fr_3fr_1fr] gap-4 items-center p-4 border border-zinc-400 rounded-lg card-list-item"
             key={order.id}
           >
             <p className="font-bold text-center">{order.id}</p>
