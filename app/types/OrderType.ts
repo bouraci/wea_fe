@@ -1,5 +1,4 @@
 import { BookListItemType } from "@/app/types/BookListType";
-import { UserAddressType } from "@/app/types/UserType";
 
 export type OrderType = {
   id: number;
