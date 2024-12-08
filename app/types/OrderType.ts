@@ -6,4 +6,5 @@ export type OrderType = {
   created: string;
   totalPrice: number;
   paymentMethod: number;
+  status?: number;
 };

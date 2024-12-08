@@ -34,12 +34,12 @@ export default function Checkout() {
   );
 
   async function handleOrder() {
-    const response = await postMakeOrder(cart, paymentMethod);
+    const orderId = await postMakeOrder(cart, paymentMethod);
 
-    if (response) {
+    if (orderId) {
       toast.success(t("orderSuccess"));
       clearCart();
-      router.push("/");
+      router.push(`/cart/checkout/thankyou?orderId=${orderId}`);
     } else {
       toast.error(t("orderFailed"));
     }

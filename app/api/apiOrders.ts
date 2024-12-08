@@ -30,5 +30,9 @@ export async function postMakeOrder(
     }),
   });
 
-  return response.ok;
+  if (!response.ok) {
+    return null;
+  }
+
+  return await response.json();
 }
