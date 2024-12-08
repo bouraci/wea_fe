@@ -7,18 +7,15 @@ import { Card } from "@components/card";
 import { FormInput } from "@components/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { mutate } from "swr";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { useTranslations } from "next-intl";
 
 export const UserDetailsForm = forwardRef(function UserDetailsForm(
   {
     userData,
-    swrKey,
     checkout = false,
   }: {
     userData: UserDetailType;
-    swrKey?: string;
     checkout?: boolean;
   },
   ref,
@@ -51,11 +48,15 @@ export const UserDetailsForm = forwardRef(function UserDetailsForm(
   );
 
   const onSubmit: SubmitHandler<UserDetailDataType> = async (data) => {
+    if (sameAddress) {
+      setValue("billingAddress", data.address);
+    }
+
     try {
       await updateUserDetails({
         birthDay: data.birthDay,
         address: data.address,
-        billingAddress: data.billingAddress,
+        billingAddress: sameAddress ? data.address : data.billingAddress,
         favouriteGerners: userData.favouriteGerners,
         processData: data.processData,
         isMale: data.isMale === "true",
@@ -65,7 +66,6 @@ export const UserDetailsForm = forwardRef(function UserDetailsForm(
 
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       !checkout && toast.success(t("userDetailsUpdateSuccess"));
-      mutate((swrKey ??= "userDetail"));
     } catch {
       toast.error(t("userDetailsUpdateFailed"));
     }
