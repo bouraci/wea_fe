@@ -117,5 +117,15 @@
     "card": "Kartou (+1% z objednávky)",
     "bank": "Bankovní převod (+0 CZK)",
     "onDelivery": "Na dobírku (+50 CZK)"
+  },
+  "order": {
+    "orderProcessing": "Zpracovává se",
+    "orderDelivering": "Doručuje se",
+    "orderCancelled": "Zrušeno",
+    "orderComplete": "Dokončeno",
+    "orderUnknown": "Neznámý stav",
+    "orderThankyou": "Děkujeme Vám za objednávku č.",
+    "orderThankyouSub": "Vaši objednávku připravujeme k doručení",
+    "home": "Na domovskou stránku"
   }
 }

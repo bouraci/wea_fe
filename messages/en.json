@@ -117,5 +117,15 @@
     "card": "Card (+1% of order)",
     "bank": "Bank Transfer (+0 CZK)",
     "onDelivery": "Cash on Delivery (+50 CZK)"
+  },
+  "order": {
+    "orderProcessing": "Processing",
+    "orderDelivering": "Delivering",
+    "orderCancelled": "Canceled",
+    "orderComplete": "Complete",
+    "orderUnknown": "Unknown",
+    "orderThankyou": "Thank you for your order nr.",
+    "orderThankyouSub": "The order is being prepare for shipping",
+    "home": "Back to homepage"
   }
 }

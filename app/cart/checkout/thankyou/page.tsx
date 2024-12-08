@@ -3,15 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function ThankYouPage() {
   const searchParams = useSearchParams();
-
+  const t = useTranslations("order");
   return (
     <div className="mx-auto my-auto space-y-4 flex-col flex justify-center items-center">
       <div className="text-center font-bold text-lg">
-        <p>Thank you for your order nr. {searchParams.get("orderId")}</p>
-        <p>The order is being prepare for shipping</p>
+        <p>
+          {t("orderThankyou")} {searchParams.get("orderId")}
+        </p>
+        <p>{t("orderThankyouSub")}</p>
       </div>
 
       <Image
@@ -22,8 +25,11 @@ export default function ThankYouPage() {
         loading="eager"
       />
 
-      <Link className="text-center w-1/2 button button--default" href="/">
-        Home
+      <Link
+        className="text-center whitespace-nowrap button button--default"
+        href="/"
+      >
+        {t("home")}
       </Link>
     </div>
   );

@@ -16,8 +16,10 @@ import {
   faCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import { Chip } from "@components/chip";
+import { useTranslations } from "next-intl";
 
 export default function UserOrdersPage() {
+  const t = useTranslations("order");
   const { data, isLoading } = useFetch<OrderType[]>(
     "userOrders",
     getUserOrders,
@@ -41,15 +43,15 @@ export default function UserOrdersPage() {
   ): string {
     switch (orderStatus) {
       case 0:
-        return "Processing";
+        return t("orderProcessing");
       case 1:
-        return "Delivering";
+        return t("orderDelivering");
       case 2:
-        return "Cancelled";
+        return t("orderCancelled");
       case 3:
-        return "Completed";
+        return t("orderCompleted");
       default:
-        return "Unknown";
+        return t("orderUnknown");
     }
   }
 
