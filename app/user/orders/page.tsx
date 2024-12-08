@@ -62,7 +62,7 @@ export default function UserOrdersPage() {
       <div className="space-y-4">
         {data.map((order) => (
           <div
-            className="grid grid-cols-[1fr_2fr_1fr_auto_3fr_1fr] gap-4 items-center p-4 border border-zinc-400 rounded-lg card-list-item"
+            className="grid grid-cols-[1fr_1fr_1fr_1fr_2fr_auto_1fr] gap-4 items-center p-4 border border-zinc-400 rounded-lg card-list-item"
             key={order.id}
           >
             <p className="font-bold text-center">{order.id}</p>
@@ -75,6 +75,26 @@ export default function UserOrdersPage() {
               className="justify-self-center"
             />
             <Chip content={getOrderStatusString(order.status)} />
+            <div>
+              {order.userSnapshot ? (
+                <div className="text-left flex gap-4">
+                  <div>
+                    <p>{order.userSnapshot.address.StreetAddress}</p>
+                    <p>{order.userSnapshot.address.City}</p>
+                    <p>{order.userSnapshot.address.Zip}</p>
+                    <p>{order.userSnapshot.address.Country}</p>
+                  </div>
+                  <div>
+                    <p>{order.userSnapshot.billingAddress.StreetAddress}</p>
+                    <p>{order.userSnapshot.billingAddress.City}</p>
+                    <p>{order.userSnapshot.billingAddress.Zip}</p>
+                    <p>{order.userSnapshot.billingAddress.Country}</p>
+                  </div>
+                </div>
+              ) : (
+                <p>-</p>
+              )}
+            </div>
             <div className="flex gap-2 justify-center">
               {order.books.map((book) => (
                 <Link href={`/books/${book.id}`} key={book.id}>

@@ -1,5 +1,6 @@
 import { authFetch } from "@utils/authFetch";
 import { CartItemType } from "@/app/types/CartType";
+import { mapOrder, OrderResponseType } from "@/app/types/OrderType";
 
 export async function getUserOrders() {
   const response = await authFetch("/api/order/orders", {
@@ -10,7 +11,9 @@ export async function getUserOrders() {
     return null;
   }
 
-  return await response.json();
+  const json = await response.json();
+
+  return json.map((order: OrderResponseType) => mapOrder(order));
 }
 
 export async function postMakeOrder(
