@@ -32,7 +32,9 @@ export function BookListItem({ book }: { book: BookListItemType }) {
             <Rating value={book.rating} />
             <p>({book.totalRatings})</p>
           </span>
-          {book.price && <b className="text-2xl pt-2">{book.price},-</b>}
+          {book.price && (
+            <b className="text-2xl pt-2">{book.price.toFixed(2)},-</b>
+          )}
         </div>
       </div>
     </Link>

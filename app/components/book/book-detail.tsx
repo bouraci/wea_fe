@@ -111,7 +111,7 @@ export function BookDetail({ book }: { book: BookType }) {
 
         {book.price && !book.isHidden && (
           <div className="flex my-6 gap-2 items-center">
-            <p className="font-bold text-4xl py-4">{book.price},-</p>
+            <p className="font-bold text-4xl py-4">{book.price.toFixed(2)},-</p>
             <Button
               icon={<FontAwesomeIcon icon={faCartPlus} size="lg" />}
               label={t("addToCart")}

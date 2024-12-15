@@ -33,12 +33,14 @@ export function ShoppingCartItems({
               {additionalCost > 0 && (
                 <>
                   <p className="text-xl">{t("fees")}:</p>
-                  <p className="font-bold text-2xl">{additionalCost},-</p>
+                  <p className="font-bold text-2xl">
+                    {additionalCost.toFixed(2)},-
+                  </p>
                 </>
               )}
               <p className="text-xl">{t("orderTotal")}:</p>
               <p className="font-bold text-2xl">
-                {cart.total + additionalCost},-
+                {(cart.total + additionalCost).toFixed(2)},-
               </p>
             </div>
 

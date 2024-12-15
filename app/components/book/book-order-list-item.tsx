@@ -57,7 +57,7 @@ export function BookOrderListItem({
       <div className="space-y-2 mt-auto">
         {item.book.price && (
           <p className="text-xl font-bold text-right pt-2">
-            {item.book.price * item.quantity},-
+            {(item.book.price * item.quantity).toFixed(2)},-
           </p>
         )}
         {!noButtons ? (
