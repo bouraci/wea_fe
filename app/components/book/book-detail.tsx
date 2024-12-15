@@ -109,7 +109,7 @@ export function BookDetail({ book }: { book: BookType }) {
           </div>
         </div>
 
-        {book.price && (
+        {book.price && !book.isHidden && (
           <div className="flex my-6 gap-2 items-center">
             <p className="font-bold text-4xl py-4">{book.price},-</p>
             <Button
