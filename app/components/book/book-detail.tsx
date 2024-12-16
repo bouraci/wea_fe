@@ -109,7 +109,7 @@ export function BookDetail({ book }: { book: BookType }) {
           </div>
         </div>
 
-        {book.price && !book.isHidden && (
+        {book.price && (
           <div className="flex my-6 gap-2 items-center">
             <p className="font-bold text-4xl py-4">{book.price.toFixed(2)},-</p>
             <Button
@@ -117,6 +117,7 @@ export function BookDetail({ book }: { book: BookType }) {
               label={t("addToCart")}
               className="w-max"
               onClick={handleAddToCart}
+              disabled={book.isHidden}
             />
           </div>
         )}
